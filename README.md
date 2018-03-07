@@ -1,56 +1,59 @@
-HTTP 통신
-통신기록
+## 웹서버
 
-인증
-정적 콘텐츠 관리
-HTTPS 지원
-콘텐츠 압축
-가상 호스팅
-대용량 파일 지원
-대역폭 스로틀링
+###### link:[위키백과: 웹서버 정의]( https://ko.wikipedia.org/wiki/%EC%9B%B9_%EC%84%9C%EB%B2%84)
 
-
-abstract of server
-	|	|	|
-http
- -> packet wrapper
- -> web content template when error occure
-
-utils
- -> excetion
- -> socket wrapper
-
-server
- -> url mapper
- -> port selection
- 
-HTTP/1.1 200 OK
-Date: Sun, 28 Jul 2013 15:37:37 GMT
-Server: Apache
-Last-Modified: Sun, 07 Jul 2013 06:13:43 GMT
-Transfer-Encoding: chunked
-Connection: Keep-Alive
-Content-Type: text/html; charset=UTF-8
-(한줄띄우고)
-
-
-Webpage Content <- 여기에 에러 페이지 템플릿 넣을것
+간단하게 기본적인 http 프로토콜과 웹서버 기능을 구현하고, 차후에 https 와 같은 기능을 개발할 예정이다.
 
 
 
+##### 구현 예정인 기능
+- ###### 기본 기능
+  - **HTTP**
+  - **Path 맵핑**
+  - **통신 기록**
+  - **에러 페이지 전송**
+- ######  이외의 기능(나중에 구현될 수 있는 기능들)
+  - **인증 (HTTPS)**
+  - **요청 스크립트**
+  - **웹소켓**
+
+간단한 웹서버 기능을 우선적으로 구현할 예정
 
 
-구현목록
+##### 프로젝트 구조
 
-Parser
+```
+├── bin
+│   └── ......
+├── doc
+│   └── ......
+├── include
+│   └── ......
+├── lib
+│   └── ......
+├── obj
+│   └── ......
+├── src
+│   └── ......
+├── test
+│   └── ......
+├── WebServer.sln
+└── WebServer.vcxproj
+```
 
-Option
+##### 로컬에 생성되는 폴더
+- bin : 기본 출력파일 경로
+- obj : 기본 중간파일 경로
 
-Socket
+##### 그 외
+- doc : 문서 파일들이 담길 경로
+- include : 헤더파일 경로
+- lib : 외부 라이브러리파일 경로
+- src : 소스파일 경로
+- test : 테스트소스, 테스트 프로젝트 경로 (기본 .gitignore에 등록되어있음, 전부가 참고할 테스트코드들은 add -f로 추가됨)
 
-Server
+필터와 같은 개인설정은 각자 설정하도록 하고 전체 프로젝트 설정의 변경이 필요할 경우에는 상의 후 변경하고
+그 외의 브랜치에서의 변경은 허용, 단 이같은 경우는 절대 master에 영향이 가지않도록 주의 (push)
 
-Errorpage mapper
 
-Exceptions
-
+인원이 적으므로 포크 대신에 이 리포지토리에서 작업할예정
