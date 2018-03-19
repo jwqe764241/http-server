@@ -78,6 +78,13 @@ namespace http{
 		NETWORK_AUTHENTICATION_REQUIRED
 	};
 
+	enum class method
+	{
+		GET,
+		POST
+		//...Not Yet
+	};
+
 }
 
 _IMPLEMENT_END
