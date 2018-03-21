@@ -2,9 +2,13 @@
 
 #include <map>
 #include <string>
+#include <exception>
+#include <iostream>
 
 #include "http/http.hpp"
 #include "utils/utils.hpp"
+
+#include "exceptions/parse_exception.hpp"
 
 _IMPLEMENT_SCOPE
 
@@ -28,7 +32,6 @@ namespace http
 	{
 	private:
 		method method;
-		std::string abs_url;
 		std::string url;
 		std::string version;
 
@@ -37,11 +40,11 @@ namespace http
 			
 	public:
 		request();
-		request(std::string http_request);
+		request(const std::string& http_request);
 
-		std::string operator[](std::string key);
-		void parse(std::string http_request);
-		void add(std::string key, std::string value);
+		std::string operator[](const std::string& key);
+		void parse(const std::string& http_request);
+		void add(const std::string& key, const std::string& value);
 
 	};
 

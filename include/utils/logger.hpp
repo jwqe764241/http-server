@@ -5,7 +5,8 @@
 namespace logger
 {
 
-	class Logger{
+	class Logger
+	{
 	private:
 		std::ostream mOutStream;
 		
@@ -17,7 +18,8 @@ namespace logger
 		void log();
 	};
 	
-	enum class level{
+	enum class level
+	{
 		PRINT,
 		WARNING,
 		ERROR

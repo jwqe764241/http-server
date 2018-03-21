@@ -6,7 +6,8 @@ _IMPLEMENT_SCOPE
 
 namespace http{
 
-	enum status{
+	enum status
+	{
 		//100 ~ 103 -> 상태 정보 제공
 		CONTINUE = 100,
 		SWITCHING_PROTOCOLS,
