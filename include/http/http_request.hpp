@@ -4,18 +4,22 @@
 #include <string>
 #include <exception>
 #include <iostream>
+#include <sstream>
+#include <algorithm>
 
 #include "http/http.hpp"
 #include "utils/utils.hpp"
 
 #include "exceptions/parse_exception.hpp"
 
+using namespace std;
+
 _IMPLEMENT_SCOPE
 
 namespace http
 {
 
-	using header = std::map<std::string, std::string>;
+	using header = map<string, string>;
 
 	//대충 요청 예제
 	//GET / favicon.ico HTTP / 1.1
@@ -30,21 +34,21 @@ namespace http
 
 	struct request
 	{
-	private:
-		method method;
-		std::string url;
-		std::string version;
+	public:
+		string method;
+		string url;
+		string version;
 
 		header header;
-		std::string body;
+		string body;
 			
 	public:
 		request();
-		request(const std::string& http_request);
+		request(const string& http_request);
 
-		std::string operator[](const std::string& key);
-		void parse(const std::string& http_request);
-		void add(const std::string& key, const std::string& value);
+		string operator[](const string& key);
+		void parse(const string& http_request);
+		void add(const string key, const string value);
 
 	};
 

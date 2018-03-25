@@ -40,15 +40,13 @@ int main(int argc, char ** argv)
 		/*
 			... 응답 코드 준비 ...
 		*/
-		char writeBuff[2048] = R"end(HTTP/1.1 401 OK
-Date: Sun, 28 Jul 2013 15 : 37 : 37 GMT
+		char writeBuff[2048] = R"end(HTTP/1.1 200 OK
+Date: Sun, 28 Jul 2018 15 : 37 : 37 GMT
 Server : KijunKim
 Last - Modified : Sun, 07 Jul 2013 06 : 13 : 43 GMT
 Transfer - Encoding : chunked
 Connection : Keep - Alive
 Content - Type : text / html; charset = UTF - 8
-
-
 )end";
 
 		//응답 보냄

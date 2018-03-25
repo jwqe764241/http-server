@@ -5,20 +5,22 @@
 
 #include "utils/utils.hpp"
 
+using namespace std;
+
 _IMPLEMENT_SCOPE
 
-class parse_exception : public std::exception
+class parse_exception : public exception
 {
 private:
-	std::string msg;
+	string msg;
 
 public:
-	parse_exception(const std::string& msg)
+	parse_exception(const string& msg)
 		: msg(msg)
 	{
 	}
 
-	const char* what()
+	const char* what() const noexcept
 	{
 		return msg.c_str();
 	}
