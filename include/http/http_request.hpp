@@ -12,14 +12,12 @@
 
 #include "exceptions/parse_exception.hpp"
 
-using namespace std;
-
 _IMPLEMENT_SCOPE
 
 namespace http
 {
 
-	using header = map<string, string>;
+	using header = std::map<std::string, std::string>;
 
 	//대충 요청 예제
 	//GET / favicon.ico HTTP / 1.1
@@ -35,20 +33,20 @@ namespace http
 	struct request
 	{
 	public:
-		string method;
-		string url;
-		string version;
+		std::string method;
+		std::string url;
+		std::string version;
 
 		header header;
-		string body;
+		std::string body;
 			
 	public:
 		request();
-		request(const string& http_request);
+		request(const std::string& http_request);
 
-		string operator[](const string& key);
-		void parse(const string& http_request);
-		void add(const string key, const string value);
+		std::string operator[](const std::string& key);
+		void parse(const std::string& http_request);
+		void add(const std::string key, const std::string value);
 
 	};
 
