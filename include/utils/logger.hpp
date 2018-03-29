@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-namespace logger
-{
+namespace logger{
 
 	class Logger
 	{

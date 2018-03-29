@@ -2,8 +2,7 @@
 
 _IMPLEMENT_SCOPE
 
-namespace http
-{
+namespace http{
 
 	request::request()
 	{
@@ -64,32 +63,22 @@ namespace http
 			request_length - (request_length - body_offset + 1) - start_offset
 		);
 
-		
+		//토큰을 기준으로 key value 추출
+		//MEMO: 물론 크게 작용하지는 않을 것 같지만 알고리즘 수정 필요한 것 같음
 		std::istringstream data_stream(data_string);
 		for(std::string current_line; getline(data_stream, current_line);)
 		{
 			int token_offset = current_line.find(global::HEADER_TOKEN, 0);
 
-			
+			utils::strings::delete_string(token_offset - 1, token_offset + 2,
+				global::WHITESPACE, std::string(""),
+				current_line
+			);
 
-			//add(
-				//current_line.
-			//)
+			token_offset = current_line.find(global::HEADER_TOKEN, 0);
+
+			add(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
 		}
-
-
-
-
-		//string temp_request(http_request);
-		//std::replace(temp_request.begin(), temp_request.end(), global::LINE_CHANGE, global::WHITESPACE);
-
-
-
-		//istringstream request_stream(temp_request);
-
-
-		//while
-
 	}
 
 	void request::add(const std::string key, const std::string value)

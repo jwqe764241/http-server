@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <iterator>
 
 #include "http/http.hpp"
 #include "utils/utils.hpp"
@@ -14,8 +15,7 @@
 
 _IMPLEMENT_SCOPE
 
-namespace http
-{
+namespace http{
 
 	using header = std::map<std::string, std::string>;
 

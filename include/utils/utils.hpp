@@ -20,3 +20,22 @@ const std::string WHITESPACE (" ");
 }
 
 _IMPLEMENT_END
+
+
+namespace utils{
+
+	namespace strings{
+		template<class RangeCount, class T>
+		void delete_string(RangeCount first, RangeCount last,
+			const T& old_value, const T& new_value, T& source)
+		{
+			for(; first != last; ++first) {
+				if(source[first] == *old_value.c_str()) {
+					source.erase(first, 1);
+					first -= 1;
+				}
+			}
+		}
+	}
+
+}
