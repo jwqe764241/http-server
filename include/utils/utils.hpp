@@ -27,12 +27,12 @@ namespace utils{
 	namespace strings{
 		template<class RangeCount, class T>
 		void delete_string(RangeCount first, RangeCount last,
-			const T& old_value, const T& new_value, T& source)
+			const T& find_value, T& source)
 		{
-			for(; first != last; ++first) {
-				if(source[first] == *old_value.c_str()) {
+			for(; first <= last; ++first) {
+				if(source[first] == *find_value.c_str()) {
 					source.erase(first, 1);
-					first -= 1;
+					//--first;
 				}
 			}
 		}

@@ -70,9 +70,9 @@ namespace http{
 		{
 			int token_offset = current_line.find(global::HEADER_TOKEN, 0);
 
-			utils::strings::delete_string(token_offset - 1, token_offset + 2,
-				global::WHITESPACE, std::string(""),
-				current_line
+			utils::strings::delete_string(
+				token_offset - 1, token_offset + 1,
+				global::WHITESPACE,current_line
 			);
 
 			token_offset = current_line.find(global::HEADER_TOKEN, 0);
