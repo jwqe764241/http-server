@@ -70,6 +70,13 @@ namespace http{
 		{
 			int token_offset = current_line.find(global::HEADER_TOKEN, 0);
 
+			//추가 HTTP 요청 데이터는 :를 토큰으로 사용하기 때문에
+			//없으면 HTTP 요청이 이상한 것으로 판단
+			if(token_offset == std::string::npos)
+			{
+				throw parse_exception("can not resolve additional HTTP request, check that request");
+			}
+
 			utils::strings::delete_string(
 				token_offset - 1, token_offset + 1,
 				global::WHITESPACE,current_line
