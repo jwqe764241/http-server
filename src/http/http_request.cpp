@@ -20,6 +20,10 @@ namespace http{
 		throw e;
 	}
 
+	request::~request()
+	{
+	}
+
 	std::string request::operator[](const std::string& key)
 	{
 		return header[key];

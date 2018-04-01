@@ -17,8 +17,6 @@ _IMPLEMENT_SCOPE
 
 namespace http{
 
-	using header = std::map<std::string, std::string>;
-
 	//대충 요청 예제
 	//GET / favicon.ico HTTP / 1.1
 	//Host: 127.0.0.1 : 5000
@@ -33,19 +31,23 @@ namespace http{
 	struct request
 	{
 	public:
+		//시작줄
 		std::string method;
 		std::string url;
 		std::string version;
 
+		//부가 헤더 정보
 		header header;
 		std::string body;
 			
 	public:
 		request();
 		request(const std::string& http_request);
+		~request();
 
 		std::string operator[](const std::string& key);
 		void parse(const std::string& http_request);
+		//부가 헤더 정보 추가
 		void add(const std::string key, const std::string value);
 
 	};

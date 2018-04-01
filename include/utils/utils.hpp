@@ -32,7 +32,6 @@ namespace utils{
 			for(; first <= last; ++first) {
 				if(source[first] == *find_value.c_str()) {
 					source.erase(first, 1);
-					//--first;
 				}
 			}
 		}

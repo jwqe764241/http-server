@@ -1,10 +1,14 @@
 #pragma once
 
+#include <map>
+
 #include "utils/utils.hpp"
 
 _IMPLEMENT_SCOPE
 
 namespace http{
+
+	using header = std::map<std::string, std::string>;
 
 	enum status
 	{
