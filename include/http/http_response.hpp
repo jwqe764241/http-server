@@ -29,7 +29,7 @@ namespace http{
 			std::string http_version, 
 			std::string response_code, 
 			std::string describe);
-		~response();
+		virtual ~response();
 
 		//std::string 문자열로 변경
 		std::string string();

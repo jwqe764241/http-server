@@ -43,7 +43,7 @@ namespace http{
 	public:
 		request();
 		request(const std::string& http_request);
-		~request();
+		virtual ~request();
 
 		std::string operator[](const std::string& key);
 		void parse(const std::string& http_request);
