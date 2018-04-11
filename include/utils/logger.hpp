@@ -12,7 +12,7 @@ namespace logger{
 	public:
 		Logger(std::ostream os);
 		Logger(std::ostream && os);
-		~Logger();
+		virtual ~Logger();
 		
 		void log();
 	};
