@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <thread>
+#include <iostream>
 
 class thread_group
 {
@@ -14,10 +15,10 @@ public:
 	}
 	virtual ~thread_group()
 	{
+		join_all();
+
 		for(auto& thread : container) 
-		{
 			delete thread;
-		}
 	};
 
 	thread_group(const thread_group&) = delete;
