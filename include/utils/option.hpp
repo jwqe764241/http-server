@@ -9,23 +9,54 @@
 
 #include "exceptions/parse_exception.hpp"
 
+
+template <typename t_key, typename t_val>
 class option
 {
 private:
-	std::map<std::string, std::string> container;
+	std::map<t_key, t_val> container;
+	option();
 
 public:
-	option();
-	option(const option& option);
-	option(const std::ofstream& file_stream);
-	option(const std::string& option_string);
-	virtual ~option();
+	//copy
+	option(const option& option)
+	{
+		container = option.container;
+	}
 
-	void parse(const std::ofstream& file_stream);
-	void parse(const std::string& option_string);
+	//move
+	option(option&& option)
+	try
+	{
+		for(auto& pair : option)
+		{
+			container[pair.first] = std::move(pair.second);
+			container.erase(pair.first);
+		}
+	}
+	catch (std::out_of_range exception)
+	{
+		//exception if option have no key
+		throw parse_exception("have no option in target option");
+	}
 
-	void add(const std::pair<std::string, std::string>& element);
-	int remove(const std::string& key);
+	virtual ~option()
+	{
+		//nothing??
+	}
 
-	std::string operator[](const std::string& key);
+	void add(const std::pair<t_key, t_val>& element)
+	{
+		container.insert(element);
+	}
+
+	int remove(const t_key key)
+	{
+		return container.erase(key);
+	}
+
+	t_key operator[](const t_key key)
+	{
+		return container[key];
+	}
 };
