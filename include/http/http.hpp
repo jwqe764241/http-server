@@ -8,17 +8,15 @@ _IMPLEMENT_SCOPE
 
 namespace http{
 
-	using header = std::map<std::string, std::string>;
-
 	enum status
 	{
-		//100 ~ 103 -> 상태 정보 제공
+		//100 ~ 103
 		CONTINUE = 100,
 		SWITCHING_PROTOCOLS,
 		PROCESSING,
 		EARLY_HINTS,
 
-		//200 ~ 208 -> 성공관련 상태
+		//200 ~ 208
 		OK = 200,
 		CREATED,
 		ACCEPTED,
@@ -30,7 +28,7 @@ namespace http{
 		ALREADY_REPORTED,
 		IM_USED = 226,
 
-		//300 ~ 308 -> 리다이렉션
+		//300 ~ 308
 		MULTIPLLE_CHOICES = 300,
 		MOVED_PERMANENTLY,
 		FOUND,
@@ -40,7 +38,7 @@ namespace http{
 		TEMPORARY_REDIRECT = 307,
 		PERMANENT_REDIRECT,
 
-		//400~ -> 클라이언트 에러
+		//400~
 		BAD_REQUEST = 400,
 		UNAUTHORIZED,
 		PAYMENT_REQUIRED,
@@ -69,7 +67,7 @@ namespace http{
 		REQUEST_HEADER_FIELDS_TOO_LARGE = 431,
 		UNAVAILABLE_FOR_LEGAL_REASONS = 451,
 
-		//500 -> server error
+		//500~
 		INTERNAL_SERVER_ERROR = 500,
 		NOT_IMPLEMENTED,
 		BAD_GATEWAY,

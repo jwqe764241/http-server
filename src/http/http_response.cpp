@@ -26,7 +26,7 @@ namespace http{
 	{
 		std::ostringstream data_stream;
 
-		//시작줄 데이터는 null 불가
+		//First line data can't be a null
 		if(http_version.empty() && response_code.empty() && describe.empty())
 			throw parse_exception("startline data can't be a null, check the startline data");
 
@@ -34,16 +34,17 @@ namespace http{
 					<< response_code << global::WHITESPACE
 					<< describe << std::endl;
 
-		//부가 헤더 정보
+		//Additional header data
 		for(const auto& pair : header)
 		{
 			data_stream << pair.first << ":" << pair.second << std::endl;
 		}
 
-		//바디 데이터
+		//Body data
 		if(!body.empty())
 		{
-			data_stream << std::endl << body << std::endl;
+			//Insert empty line first because body data seperated with line
+			data_stream << std::endl << body;
 		}
 
 		return data_stream.str();
