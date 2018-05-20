@@ -1,7 +1,5 @@
 #pragma once
 
-#include <sstream>
-#include <fstream>
 #include <string>
 #include <map>
 
@@ -10,22 +8,24 @@
 #include "exceptions/parse_exception.hpp"
 
 
+_IMPLEMENT_SCOPE
+namespace option{
+
 template <typename t_key, typename t_val>
-class option
+class basic_option
 {
 private:
 	std::map<t_key, t_val> container;
-	option();
 
 public:
-	//copy
-	option(const option& option)
+	basic_option(){}
+
+	basic_option(const basic_option& option)
 	{
 		container = option.container;
 	}
 
-	//move
-	option(option&& option)
+	basic_option(basic_option&& option)
 	try
 	{
 		for(auto& pair : option)
@@ -36,11 +36,11 @@ public:
 	}
 	catch (std::out_of_range exception)
 	{
-		//exception if option have no key
-		throw parse_exception("have no option in target option");
+		//exception if option has no key
+		throw parse_exception("no option in target option");
 	}
 
-	virtual ~option()
+	virtual ~basic_option()
 	{
 		//nothing??
 	}
@@ -60,3 +60,6 @@ public:
 		return container[key];
 	}
 };
+
+}
+_IMPLEMENT_END

@@ -15,13 +15,14 @@ namespace http{
 	struct response
 	{
 	public:
-		//시작줄
+		//First line data - HTTP verison, Response code, Describe
 		std::string http_version;
 		std::string response_code;
 		std::string describe;
 
-		//부가 헤더 정보 추가
-		header header;
+		//Additional header data
+		std::map<std::string, std::string> header;
+		//Body data
 		std::string body;
 	public:
 		response();
@@ -31,10 +32,10 @@ namespace http{
 			std::string describe);
 		virtual ~response();
 
-		//std::string 문자열로 변경
+		//Get option into std::string
 		std::string string();
 		std::string operator[](const std::string key);
-		//부가 헤더 정보 추가
+		//Add additional header data
 		void add(const std::string key, const std::string value);
 	};
 
