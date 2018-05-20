@@ -38,7 +38,7 @@ namespace http{
 
 		const int request_length = http_request.length();
 
-		//첫째줄
+		//Parse First line
 		const int start_offset = http_request.find(global::LINE_CHANGE, 0);
 		if(start_offset != std::string::npos)
 		{
@@ -53,29 +53,29 @@ namespace http{
 			throw parse_exception("Can not resolve HTTP request, check that request");
 		}
 
-		//바디 파싱
+		//Parse Body
 		const int body_offset = http_request.find(global::DIVIDE_BODY, start_offset + 1);
 		if(body_offset != std::string::npos)
 		{
 			body = http_request.substr(body_offset + 2, request_length);
 		}
 		
-		//나머지 헤더
+		//Additional header string
 		std::string data_string = http_request.substr(
+			//No First line
 			start_offset + 1,
-			//나머지 헤더 갯수 = 전체 길이 - (전체 길이 - body 시작 위치 - \n\n이 2개이므로 -1) - 시작 위치
+			//Additional header length = Total_length - (Total_length - Start position of boddy - (-1 beacuse of two \n\n to seperate body)) - Start Position
 			request_length - (request_length - body_offset + 1) - start_offset
 		);
 
-		//토큰을 기준으로 key value 추출
-		//MEMO: 물론 크게 작용하지는 않을 것 같지만 알고리즘 수정 필요한 것 같음
+		//Extract key and value with token
 		std::istringstream data_stream(data_string);
 		for(std::string current_line; getline(data_stream, current_line);)
 		{
 			int token_offset = current_line.find(global::HEADER_TOKEN, 0);
 
-			//추가 HTTP 요청 데이터는 :를 토큰으로 사용하기 때문에
-			//없으면 HTTP 요청이 이상한 것으로 판단
+			//Additional header's token is ':'
+			//so if ':' is not exist this is error
 			if(token_offset == std::string::npos)
 			{
 				throw parse_exception("can not resolve additional HTTP request, check that request");

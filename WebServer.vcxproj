@@ -153,6 +153,9 @@
     <ClInclude Include="include\server\starter.hpp" />
     <ClInclude Include="include\utils\logger.hpp" />
     <ClInclude Include="include\utils\thread_group.hpp" />
+    <ClInclude Include="include\utils\file_option.hpp" />
+    <ClInclude Include="include\utils\logger.hpp" />
+    <ClInclude Include="include\utils\basic_option.hpp" />
     <ClInclude Include="include\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +163,7 @@
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\server\starter.cpp" />
+    <ClCompile Include="src\utils\file_option.cpp" />
     <ClCompile Include="src\utils\logger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

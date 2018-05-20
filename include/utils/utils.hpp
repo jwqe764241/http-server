@@ -29,10 +29,10 @@ namespace utils{
 		void delete_string(RangeCount first, RangeCount last,
 			const T& find_value, T& source)
 		{
-			for(; first <= last; ++first) {
-				if(source[first] == *find_value.c_str()) {
+			for(; first <= last; ++first) 
+			{
+				if(source[first] == *find_value.c_str())
 					source.erase(first, 1);
-				}
 			}
 		}
 	}
