@@ -151,10 +151,8 @@
     <ClInclude Include="include\http\http_request.hpp" />
     <ClInclude Include="include\http\http_response.hpp" />
     <ClInclude Include="include\server\starter.hpp" />
-    <ClInclude Include="include\utils\logger.hpp" />
     <ClInclude Include="include\utils\thread_group.hpp" />
     <ClInclude Include="include\utils\file_option.hpp" />
-    <ClInclude Include="include\utils\logger.hpp" />
     <ClInclude Include="include\utils\basic_option.hpp" />
     <ClInclude Include="include\utils\utils.hpp" />
   </ItemGroup>
