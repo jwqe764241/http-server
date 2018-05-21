@@ -14,7 +14,7 @@ namespace option{
 template <typename t_key, typename t_val>
 class basic_option
 {
-private:
+protected:
 	std::map<t_key, t_val> container;
 
 public:
@@ -58,6 +58,11 @@ public:
 	t_key operator[](const t_key key)
 	{
 		return container[key];
+	}
+
+	const std::map<t_key, t_val>& get_container()
+	{
+		return container;
 	}
 };
 
