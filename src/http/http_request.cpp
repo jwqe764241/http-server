@@ -78,7 +78,7 @@ namespace http{
 			//so if ':' is not exist this is error
 			if(token_offset == std::string::npos)
 			{
-				throw parse_exception("can not resolve additional HTTP request, check that request");
+				throw parse_exception("Can't resolve additional HTTP request, check that request");
 			}
 
 			utils::strings::delete_string(

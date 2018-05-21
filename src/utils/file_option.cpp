@@ -12,23 +12,19 @@ try
 {
 	parse(file_stream);
 }
-catch(std::exception& e)
+catch(const std::exception& e)
 {
-	throw e;
+	throw;
 }
 
 file_option::file_option(std::ifstream&& file_stream)
 try
 {
 	parse(file_stream);
-
-	file_stream.close();
 }
-catch(std::exception& e)
+catch(const std::exception& e)
 {
-	file_stream.close();
-
-	throw e;
+	throw;
 }
 
 void file_option::parse(std::ifstream& file_stream)
@@ -47,14 +43,18 @@ void file_option::parse(std::ifstream& file_stream)
 
 			line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
 
-			std::cout << line << std::endl;
+			int token_offset = line.find('=');
+			if(token_offset != std::string::npos)
+			{
+				container.insert(std::pair<std::string, std::string>(line.substr(0, token_offset), line.substr(token_offset + 1, line.size())));
+			}
 		}
 	}
 	else
 	{
-		throw server::parse_exception("can't access this stream");
+		throw parse_exception("Can't access option file");
 	}
 }
-	
+
 }
 _IMPLEMENT_END
