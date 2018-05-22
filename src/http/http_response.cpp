@@ -28,7 +28,7 @@ namespace http{
 
 		//First line data can't be a null
 		if(http_version.empty() && response_code.empty() && describe.empty())
-			throw parse_exception("startline data can't be a null, check the startline data");
+			throw parse_exception("Start line data can't be a null, check the startline data");
 
 		data_stream << http_version << global::WHITESPACE
 					<< response_code << global::WHITESPACE
