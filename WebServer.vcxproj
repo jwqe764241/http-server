@@ -150,8 +150,8 @@
     <ClInclude Include="include\http\http.hpp" />
     <ClInclude Include="include\http\http_request.hpp" />
     <ClInclude Include="include\http\http_response.hpp" />
-    <ClInclude Include="include\server\starter.hpp" />
-    <ClInclude Include="include\utils\thread_group.hpp" />
+    <ClInclude Include="include\server\server.hpp" />
+    <ClInclude Include="include\utils\logger.hpp" />
     <ClInclude Include="include\utils\file_option.hpp" />
     <ClInclude Include="include\utils\basic_option.hpp" />
     <ClInclude Include="include\utils\utils.hpp" />
@@ -160,7 +160,7 @@
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\server\starter.cpp" />
+    <ClCompile Include="src\server\server.cpp" />
     <ClCompile Include="src\utils\file_option.cpp" />
     <ClCompile Include="src\utils\logger.cpp" />
   </ItemGroup>
