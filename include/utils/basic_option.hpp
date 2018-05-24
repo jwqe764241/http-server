@@ -55,7 +55,7 @@ public:
 		return container.erase(key);
 	}
 
-	t_key operator[](const t_key key)
+	t_val operator[](const t_key key)
 	{
 		return container[key];
 	}
