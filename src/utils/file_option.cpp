@@ -45,14 +45,13 @@ void file_option::parse(std::ifstream& file_stream)
 
 			int token_offset = line.find('=');
 			if(token_offset != std::string::npos)
-			{
 				container.insert(std::pair<std::string, std::string>(line.substr(0, token_offset), line.substr(token_offset + 1, line.size())));
-			}
+
 		}
 	}
 	else
 	{
-		throw parse_exception("Can't access option file");
+		throw parse_exception("Can't access option file", 0);
 	}
 }
 
