@@ -150,6 +150,7 @@
     <ClInclude Include="include\http\http.hpp" />
     <ClInclude Include="include\http\http_request.hpp" />
     <ClInclude Include="include\http\http_response.hpp" />
+    <ClInclude Include="include\server\circular_queue.hpp" />
     <ClInclude Include="include\server\server.hpp" />
     <ClInclude Include="include\utils\logger.hpp" />
     <ClInclude Include="include\utils\file_option.hpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\server\circular_queue.cpp" />
     <ClCompile Include="src\server\server.cpp" />
     <ClCompile Include="src\utils\file_option.cpp" />
     <ClCompile Include="src\utils\logger.cpp" />

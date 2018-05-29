@@ -51,7 +51,7 @@ void file_option::parse(std::ifstream& file_stream)
 	}
 	else
 	{
-		throw parse_exception("Can't access option file", 0);
+		throw parse_exception("Can't access option file");
 	}
 }
 

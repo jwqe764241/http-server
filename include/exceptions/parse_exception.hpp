@@ -11,16 +11,11 @@ class parse_exception : public std::exception
 {
 private:
 	std::string msg;
-	int id;
 
-	enum ID
-	{
-
-	};
 
 public:
-	parse_exception(const std::string& msg, int id)
-		: msg(msg), id(id)
+	parse_exception(const std::string& msg)
+		: msg(msg)
 	{
 	}
 
@@ -29,10 +24,6 @@ public:
 		return msg.c_str();
 	}
 
-	int id() const noexcept
-	{
-		return id;
-	}
 };
 
 _IMPLEMENT_END
