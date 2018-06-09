@@ -18,7 +18,7 @@ public:
 	int rear;
 
 	circular_queue()
-		: front(0), rear(0), container({0})
+		: front(0), rear(0), container()
 	{
 	}
 
