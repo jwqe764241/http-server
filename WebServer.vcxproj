@@ -161,7 +161,6 @@
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\server\circular_queue.cpp" />
     <ClCompile Include="src\server\server.cpp" />
     <ClCompile Include="src\utils\file_option.cpp" />
     <ClCompile Include="src\utils\logger.cpp" />
