@@ -13,7 +13,18 @@ server::server():
 
 void server::run()
 {
-	io_service.run();
+	try
+	{
+		io_service.run();
+	}
+	catch (const std::exception& e)
+	{
+		//...
+	}
+	catch (...)
+	{
+		//...
+	}
 }
 
 
@@ -29,6 +40,7 @@ void server::onAccept(const asio::error_code error_code)
 		std::cout << "Yeah" << std::endl;
 
 		auto sock = std::move(listen_socket);
+		//auto sock(std::move(std::move(listen_socket)));
 	}
 
 	acceptor.async_accept(listen_socket, std::bind(&server::onAccept, this, std::placeholders::_1));
@@ -58,6 +70,7 @@ void server::start(server_option option)
 void server::exit()
 {
 	signal.async_wait(std::bind(&server::onStop, this, std::placeholders::_1));
+	io_service.stop();
 }
 
 _IMPLEMENT_END

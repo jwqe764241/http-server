@@ -23,13 +23,13 @@ private:
 	asio::ip::tcp::socket listen_socket;
 	asio::ip::tcp::acceptor acceptor;
 
-
 private:
 	//accept connection and reday to communication
 	void run();
 
 	void onAccept(const asio::error_code error_code);
 	void onStop(const asio::error_code error_code);
+
 public:
 	//initialize server with default option
 	server();
@@ -41,11 +41,9 @@ public:
 
 	//server start end function
 	//get all resource
-	void start(server_option opyion);
+	void start(server_option option);
 	//release all resource
 	void exit();
-
-
 
 };
 
