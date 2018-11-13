@@ -27,8 +27,8 @@ private:
 	//accept connection and reday to communication
 	void run();
 
-	void onAccept(const asio::error_code error_code);
-	void onStop(const asio::error_code error_code);
+	void on_accept(const asio::error_code error_code);
+	void on_stop(const asio::error_code error_code);
 
 public:
 	//initialize server with default option

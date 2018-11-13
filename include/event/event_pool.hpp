@@ -8,6 +8,7 @@ class event_pool
 {
 private:
 	circular_queue<t_event> queue;
-	
+
+public:
 };
 

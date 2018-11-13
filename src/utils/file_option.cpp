@@ -27,6 +27,10 @@ catch(const std::exception& e)
 	throw;
 }
 
+file_option::~file_option()
+{
+}
+
 void file_option::parse(std::ifstream& file_stream)
 {
 	if(file_stream.is_open())

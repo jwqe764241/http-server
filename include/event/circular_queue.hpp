@@ -3,7 +3,10 @@
 #include <iostream>
 #include <array>
 
-template <typename t_type, int t_size>
+/*
+	circular queue
+*/
+template <typename t_type>
 class circular_queue
 {
 private:
@@ -11,14 +14,14 @@ private:
 		use modulo operation to check bound
 		so, add one more space in container
 	*/
-	std::array<t_type, t_size + 1> container;
+	std::vector<t_type> container;
 
 public:
 	int front;
 	int rear;
 
-	circular_queue()
-		: front(0), rear(0), container()
+	circular_queue(int max_size)
+		: front(0), rear(0), container(max_size + 1)
 	{
 	}
 
@@ -61,10 +64,10 @@ public:
 		/*
 			return size with -1 because container size added one more
 		*/
-		return container.size() -1;
+		return container.size() - 1;
 	}
 
-	std::array<t_type, t_size + 1> getArray()
+	std::vector<t_type> get_container()
 	{
 		return container;
 	}

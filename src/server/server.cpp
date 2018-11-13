@@ -28,7 +28,7 @@ void server::run()
 }
 
 
-void server::onAccept(const asio::error_code error_code)
+void server::on_accept(const asio::error_code error_code)
 {
 	if(!acceptor.is_open())
 	{
@@ -43,10 +43,11 @@ void server::onAccept(const asio::error_code error_code)
 		//auto sock(std::move(std::move(listen_socket)));
 	}
 
-	acceptor.async_accept(listen_socket, std::bind(&server::onAccept, this, std::placeholders::_1));
+	//ready the next request
+	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 }
 
-void server::onStop(const asio::error_code error_code)
+void server::on_stop(const asio::error_code error_code)
 {
 	acceptor.close();
 }
@@ -54,6 +55,7 @@ void server::onStop(const asio::error_code error_code)
 
 void server::start(server_option option)
 {
+	//TODO: should set localhost and 8080 port when ip and port are not specified.
 	asio::ip::tcp::resolver resolver(io_service);
 	asio::ip::tcp::resolver::query query({option["IP"], option["PORT"]});
 
@@ -62,14 +64,14 @@ void server::start(server_option option)
 	acceptor.bind(endpoint);
 	acceptor.listen(asio::socket_base::max_connections);
 
-	acceptor.async_accept(listen_socket, std::bind(&server::onAccept, this, std::placeholders::_1));
+	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
 	run();
 }
 
 void server::exit()
 {
-	signal.async_wait(std::bind(&server::onStop, this, std::placeholders::_1));
+	signal.async_wait(std::bind(&server::on_stop, this, std::placeholders::_1));
 	io_service.stop();
 }
 

@@ -1,7 +1,9 @@
 #pragma once
 
+#include <iostream>
+
 class event
 {
 public:
-	virtual void notify() const = 0;
+	virtual void notify() = 0;
 };

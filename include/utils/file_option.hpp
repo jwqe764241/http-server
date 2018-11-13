@@ -19,6 +19,7 @@ namespace option{
 		file_option();
 		file_option(std::ifstream& file_stream);
 		file_option(std::ifstream&& file_stream);
+		~file_option();
 
 		void parse(std::ifstream& file_stream);
 	};

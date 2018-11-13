@@ -147,15 +147,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\event\basic_events.hpp" />
+    <ClInclude Include="include\event\circular_queue.hpp" />
     <ClInclude Include="include\event\dispatcher.hpp" />
     <ClInclude Include="include\event\event.hpp" />
     <ClInclude Include="include\event\event_pool.hpp" />
+    <ClInclude Include="include\event\thread_pool.hpp" />
     <ClInclude Include="include\exceptions\parse_exception.hpp" />
     <ClInclude Include="include\http\http.hpp" />
     <ClInclude Include="include\http\http_request.hpp" />
     <ClInclude Include="include\http\http_response.hpp" />
     <ClInclude Include="include\server\server.hpp" />
-    <ClInclude Include="include\utils\circular_queue.hpp" />
     <ClInclude Include="include\utils\logger.hpp" />
     <ClInclude Include="include\utils\file_option.hpp" />
     <ClInclude Include="include\utils\basic_option.hpp" />
