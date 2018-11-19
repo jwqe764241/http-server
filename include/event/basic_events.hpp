@@ -7,7 +7,7 @@
 class basic_event : public event
 {
 public:
-	void notify() override
+	virtual void notify() override
 	{
 		std::cout << "event called" << std::endl;
 	}
