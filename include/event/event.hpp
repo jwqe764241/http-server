@@ -5,8 +5,5 @@
 class event
 {
 public:
-	virtual void notify()
-	{
-		std::cout << "event called" << std::endl;
-	}
+	virtual void notify() = 0;
 };

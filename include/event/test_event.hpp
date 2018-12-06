@@ -9,6 +9,6 @@ class basic_event : public event
 public:
 	virtual void notify() override
 	{
-		std::cout << "event called" << std::endl;
+		std::cout << "test event called" << std::endl;
 	}
 };

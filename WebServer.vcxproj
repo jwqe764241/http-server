@@ -146,9 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\event\basic_events.hpp" />
+    <ClInclude Include="include\event\test_event.hpp" />
     <ClInclude Include="include\event\circular_queue.hpp" />
-    <ClInclude Include="include\event\dispatcher.hpp" />
     <ClInclude Include="include\event\event.hpp" />
     <ClInclude Include="include\event\event_pool.hpp" />
     <ClInclude Include="include\event\thread_pool.hpp" />

@@ -22,7 +22,8 @@ private:
 	std::vector<std::thread> workers;
 	circular_queue<t_task> tasks;
 	
-	std::mutex mutex;
+	std::mutex task_mutex;
+	std::mutex pool_mutex;
 
 	bool running;
 
@@ -47,9 +48,9 @@ public:
 		{
 			if(!pool->is_task_empty())
 			{
-				event& e = pool->pop_task();
+				event * e = pool->pop_task();
 
-				e.notify();
+				e->notify();
 			}
 		}
 	}
@@ -57,7 +58,7 @@ public:
 	void stop()
 	{
 		{
-			std::lock_guard<std::mutex> guard(this->mutex);
+			std::lock_guard<std::mutex> guard(this->task_mutex);
 			running = false;
 		}
 
@@ -75,31 +76,31 @@ public:
 
 	bool is_running()
 	{
-		std::lock_guard<std::mutex> guard(this->mutex);
+		std::lock_guard<std::mutex> guard(this->pool_mutex);
 		return running;
 	}
 
 	bool is_task_empty()
 	{
-		std::lock_guard<std::mutex> guard(this->mutex);
+		std::lock_guard<std::mutex> guard(this->task_mutex);
 		return tasks.empty();
 	}
 
 	bool is_task_full()
 	{
-		std::lock_guard<std::mutex> guard(this->mutex);
+		std::lock_guard<std::mutex> guard(this->task_mutex);
 		return tasks.full();
 	}
 
 	void push_task(t_task task)
 	{
-		std::lock_guard<std::mutex> guard(this->mutex);
+		std::lock_guard<std::mutex> guard(this->task_mutex);
 		tasks.enqueue(task);
 	}
 
 	t_task pop_task()
 	{
-		std::lock_guard<std::mutex> guard(this->mutex);
+		std::lock_guard<std::mutex> guard(this->task_mutex);
 		return tasks.dequeue();
 	}
 };
