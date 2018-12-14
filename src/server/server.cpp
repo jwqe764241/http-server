@@ -7,8 +7,6 @@ server::server():
 	listen_socket(io_service),
 	signal(io_service)
 {
-	//
-
 }
 
 void server::run()
@@ -65,6 +63,8 @@ void server::start(server_option option)
 	acceptor.listen(asio::socket_base::max_connections);
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
+
+	std::cout << "Now, server is running...." << std::endl;
 
 	run();
 }
