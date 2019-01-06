@@ -5,7 +5,8 @@ _IMPLEMENT_SCOPE
 server::server(): 
 	acceptor(io_service),
 	listen_socket(io_service),
-	signal(io_service)
+	signal(io_service),
+	event_pool(5, 300)
 {
 }
 
@@ -35,13 +36,21 @@ void server::on_accept(const asio::error_code error_code)
 	
 	if(!error_code)
 	{
-		std::cout << "Yeah" << std::endl;
-
-		auto sock = std::move(listen_socket);
-		//auto sock(std::move(std::move(listen_socket)));
+		try
+		{
+			event_pool.push_task(&get_request_event(io_service, std::move(listen_socket)));
+		}
+		catch(std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << error_code.value() << " : " << error_code.message() << std::endl;
 	}
 
-	//ready the next request
+	listen_socket.close();
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 }
 

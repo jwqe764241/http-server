@@ -10,7 +10,9 @@
 
 #include "utils/utils.hpp"
 #include "utils/basic_option.hpp"
-#include "event/event_pool.hpp"
+#include "event/event.hpp"
+#include "event/get_request.event.hpp"
+#include "event/thread_pool.hpp"
 
 _IMPLEMENT_SCOPE
 
@@ -26,6 +28,7 @@ private:
 	asio::ip::tcp::socket listen_socket;
 	asio::ip::tcp::acceptor acceptor;
 
+	thread_pool<event*> event_pool;
 
 
 private:

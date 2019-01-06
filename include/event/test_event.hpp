@@ -4,7 +4,7 @@
 #include "event/event.hpp"
 
 
-class basic_event : public event
+class test_event : public event
 {
 public:
 	virtual void notify() override
