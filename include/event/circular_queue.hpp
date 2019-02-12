@@ -16,9 +16,10 @@ private:
 	*/
 	std::vector<t_type> container;
 
-public:
 	int front;
 	int rear;
+
+public:
 
 	circular_queue(int max_size)
 		: front(0), rear(0), container(max_size + 1)

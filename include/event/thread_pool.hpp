@@ -13,7 +13,7 @@
 	thread pool
 	process task with mant thread
 
-	TODO: need mutex
+	TODO: make container threadsafe
 */
 template <typename t_task>
 class thread_pool
