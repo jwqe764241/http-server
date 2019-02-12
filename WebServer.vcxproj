@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -146,12 +146,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\event\get_request.event.hpp" />
+    <ClInclude Include="include\event\circular_queue.hpp" />
+    <ClInclude Include="include\event\event.hpp" />
+    <ClInclude Include="include\event\thread_pool.hpp" />
     <ClInclude Include="include\exceptions\parse_exception.hpp" />
     <ClInclude Include="include\http\http.hpp" />
     <ClInclude Include="include\http\http_request.hpp" />
     <ClInclude Include="include\http\http_response.hpp" />
-    <ClInclude Include="include\utils\file_option.hpp" />
+    <ClInclude Include="include\server\server.hpp" />
     <ClInclude Include="include\utils\logger.hpp" />
+    <ClInclude Include="include\utils\file_option.hpp" />
     <ClInclude Include="include\utils\basic_option.hpp" />
     <ClInclude Include="include\utils\utils.hpp" />
   </ItemGroup>
@@ -159,6 +164,7 @@
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\server\server.cpp" />
     <ClCompile Include="src\utils\file_option.cpp" />
     <ClCompile Include="src\utils\logger.cpp" />
   </ItemGroup>

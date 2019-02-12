@@ -13,15 +13,16 @@
 _IMPLEMENT_SCOPE
 namespace option{
 
-class file_option : public basic_option<std::string, std::string>
-{
-public:
-	file_option();
-	file_option(std::ifstream& file_stream);
-	file_option(std::ifstream&& file_stream);
+	class file_option : public basic_option<std::string, std::string>
+	{
+	public:
+		file_option();
+		file_option(std::ifstream& file_stream);
+		file_option(std::ifstream&& file_stream);
+		~file_option();
 
-	void parse(std::ifstream& file_stream);
-};
+		void parse(std::ifstream& file_stream);
+	};
 
 }
 _IMPLEMENT_END

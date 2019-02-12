@@ -12,6 +12,7 @@ class parse_exception : public std::exception
 private:
 	std::string msg;
 
+
 public:
 	parse_exception(const std::string& msg)
 		: msg(msg)
@@ -22,6 +23,7 @@ public:
 	{
 		return msg.c_str();
 	}
+
 };
 
 _IMPLEMENT_END
