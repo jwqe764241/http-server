@@ -28,8 +28,8 @@ private:
 	bool running;
 
 public:
-	thread_pool(int max_worker,int max_tasks)
-		: workers(max_worker), tasks(max_tasks), running(true)
+	thread_pool(int max_worker,int max_task)
+		: workers(max_worker), tasks(max_task), running(true)
 	{
 		for(int i = 0; i < max_worker; ++i)
 		{
@@ -46,12 +46,22 @@ public:
 	{
 		while(pool->is_running())
 		{
-			if(!pool->is_task_empty())
+			try
 			{
-				event * e = pool->pop_task();
+				if(!pool->is_task_empty())
+				{
+					event * task = pool->pop_task();
 
-				e->notify();
+					task->notify();
+
+					delete task;
+				}
 			}
+			catch (const std::exception& e)
+			{
+				std::cout << "Exception Occur " << e.what() << std::endl;
+			}
+			
 		}
 	}
 

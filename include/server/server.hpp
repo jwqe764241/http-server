@@ -18,11 +18,7 @@ _IMPLEMENT_SCOPE
 
 class server
 {
-	using server_option = option::basic_option<std::string, std::string>;
-
 private:
-	server_option option;
-
 	asio::io_service io_service;
 	asio::signal_set signal;
 	asio::ip::tcp::socket listen_socket;
@@ -40,7 +36,7 @@ private:
 
 public:
 	//initialize server with default option
-	server();
+	server(int max_worker, int max_task);
 
 	//Not allow assign, copy, move
 	server(const server& server) = delete;
@@ -49,7 +45,7 @@ public:
 
 	//server start end function
 	//get all resource
-	void start(server_option option);
+	void start(std::string ip, std::string port);
 	//release all resource
 	void exit();
 
