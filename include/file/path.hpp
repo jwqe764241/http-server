@@ -48,6 +48,7 @@ public:
 			throw std::invalid_argument("this path string not supported");
 		}
 
+		//get directories after first directory
 		int prev_position = position;
 		while((position = path_string.find(divider, position)) != std::string::npos)
 		{
@@ -70,6 +71,7 @@ public:
 	
 	void append(const std::string& path_string)
 	{
+		//if path string has divider, it can be consist of many folder
 		if(path_string.find(divider) != std::string::npos)
 		{
 			*this += path(path_string);
