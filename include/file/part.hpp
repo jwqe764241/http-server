@@ -30,7 +30,7 @@ public:
 	{
 	}
 
-	std::string get_name()
+	std::string get_name() const
 	{
 		return name;
 	}
