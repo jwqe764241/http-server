@@ -2,7 +2,7 @@
 
 #include <asio.hpp>
 #include <csignal>
-
+#include <memory>
 #include <iostream>
 
 
@@ -11,7 +11,7 @@
 #include "utils/utils.hpp"
 #include "utils/basic_option.hpp"
 #include "event/event.hpp"
-#include "event/get_request.event.hpp"
+#include "event/get_request_event.hpp"
 #include "event/thread_pool.hpp"
 
 _IMPLEMENT_SCOPE
@@ -24,7 +24,7 @@ private:
 	asio::ip::tcp::socket listen_socket;
 	asio::ip::tcp::acceptor acceptor;
 
-	thread_pool<event*> event_pool;
+	thread_pool<std::shared_ptr<event>> event_pool;
 
 
 private:

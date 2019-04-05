@@ -39,7 +39,7 @@ void server::on_accept(const asio::error_code error_code)
 		try
 		{
 			//TODO: fix lifetime of event. when flow exit from this function, event will be destroyed
-			event_pool.push_task(new get_request_event(io_service, std::move(listen_socket)));
+			event_pool.push_task(std::make_shared<get_request_event>(io_service, std::move(listen_socket)));
 		}
 		catch(std::exception& e)
 		{

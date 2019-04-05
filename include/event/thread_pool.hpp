@@ -50,11 +50,9 @@ public:
 			{
 				if(!pool->is_task_empty())
 				{
-					event * task = pool->pop_task();
+					auto task = pool->pop_task();
 
 					task->notify();
-
-					delete task;
 				}
 			}
 			catch (const std::exception& e)
