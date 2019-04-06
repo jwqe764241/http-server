@@ -33,13 +33,13 @@ public:
 		else if(position > 0)
 		{
 			//has divider, not fist
-			parts.push_back(part(path_string.substr(0, position)));
+			append(part(path_string.substr(0, position)));
 			position += divider.size();
 		}
 		else if(position == std::string::npos && path_string.size() > 0)
 		{
 			//has no divider, but has part text
-			parts.push_back(part(path_string));
+			append(part(path_string));
 			return;
 		}
 		else
@@ -52,7 +52,7 @@ public:
 		int prev_position = position;
 		while((position = path_string.find(divider, position)) != std::string::npos)
 		{
-			parts.push_back(part(path_string.substr(prev_position, position - prev_position)));
+			append(part(path_string.substr(prev_position, position - prev_position)));
 			position += divider.size();
 
 			prev_position = position;
@@ -61,7 +61,7 @@ public:
 		//if path not ended with divider
 		if(prev_position < path_string.size())
 		{
-			parts.push_back(part(path_string.substr(prev_position, path_string.size())));
+			append(part(path_string.substr(prev_position, path_string.size())));
 		}
 	}
 
@@ -74,17 +74,22 @@ public:
 		//if path string has divider, it can be consist of many folder
 		if(path_string.find(divider) != std::string::npos)
 		{
-			*this += path(path_string);
+			this->append(path(path_string));
 		}
 		else
 		{
-			this->parts.push_back(part(path_string));
+			this->append(part(path_string));
 		}
 	}
 
 	void append(const path& path)
 	{
 		this->parts.insert(parts.end(), path.parts.begin(), path.parts.end());
+	}
+
+	void append(const part& part)
+	{
+		this->parts.push_back(part);
 	}
 
 	std::string get_path()
