@@ -37,6 +37,7 @@ private:
 public:
 	//initialize server with default option
 	server(int max_worker, int max_task);
+	virtual ~server();
 
 	//Not allow assign, copy, move
 	server(const server& server) = delete;
@@ -47,7 +48,7 @@ public:
 	//get all resource
 	void start(std::string ip, std::string port);
 	//release all resource
-	void exit();
+	void stop();
 
 };
 

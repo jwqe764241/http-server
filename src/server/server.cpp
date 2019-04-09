@@ -10,6 +10,11 @@ server::server(int max_worker, int max_task):
 {
 }
 
+server::~server()
+{
+	stop();
+}
+
 void server::run()
 {
 	try
@@ -57,6 +62,7 @@ void server::on_accept(const asio::error_code error_code)
 
 void server::on_stop(const asio::error_code error_code)
 {
+	event_pool.stop();
 	acceptor.close();
 }
 
@@ -79,7 +85,7 @@ void server::start(std::string ip, std::string port)
 	run();
 }
 
-void server::exit()
+void server::stop()
 {
 	signal.async_wait(std::bind(&server::on_stop, this, std::placeholders::_1));
 	io_service.stop();

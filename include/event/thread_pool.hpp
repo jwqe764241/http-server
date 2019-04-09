@@ -27,6 +27,18 @@ private:
 
 	bool running;
 
+private:
+	void join_all()
+	{
+		for(std::thread& worker : workers)
+		{
+			if(worker.joinable())
+				worker.join();
+		}
+
+		std::cout << "fuck yeah" << std::endl;
+	}
+
 public:
 	thread_pool(int max_worker,int max_task)
 		: workers(max_worker), tasks(max_task), running(true)
@@ -71,15 +83,6 @@ public:
 		}
 
 		join_all();
-	}
-
-	void join_all()
-	{
-		for(std::thread& worker : workers)
-		{
-			if(worker.joinable())
-				worker.join();
-		}
 	}
 
 	bool is_running()
