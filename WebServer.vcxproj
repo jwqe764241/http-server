@@ -150,6 +150,7 @@
     <ClInclude Include="include\event\circular_queue.hpp" />
     <ClInclude Include="include\event\event.hpp" />
     <ClInclude Include="include\event\thread_pool.hpp" />
+    <ClInclude Include="include\exceptions\file_not_found_exception.hpp" />
     <ClInclude Include="include\exceptions\parse_exception.hpp" />
     <ClInclude Include="include\file\part.hpp" />
     <ClInclude Include="include\file\path.hpp" />
