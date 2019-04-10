@@ -8,10 +8,10 @@ namespace http{
 	{
 	}
 
-	request::request(const std::string& http_request)
+	request::request(const std::string& request_text)
 	try
 	{
-		parse(http_request);
+		parse(request_text);
 	}
 	catch(const parse_exception& e)
 	{
@@ -29,20 +29,20 @@ namespace http{
 		return header[key];
 	}
 
-	void request::parse(const std::string& http_request)
+	void request::parse(const std::string& request_text)
 	{	
-		if(http_request.empty())
+		if(request_text.empty())
 		{
 			throw parse_exception("HTTP request is empty. Check that request");
 		}
 
-		const int request_length = http_request.length();
+		const int request_length = request_text.length();
 
 		//Parse First line
-		const int start_offset = http_request.find(global::LINE_CHANGE, 0);
+		const int start_offset = request_text.find(global::LINE_CHANGE, 0);
 		if(start_offset != std::string::npos)
 		{
-			std::stringstream start_stream(http_request.substr(0, start_offset));
+			std::stringstream start_stream(request_text.substr(0, start_offset));
 
 			start_stream >> method;
 			start_stream >> url;
@@ -54,14 +54,14 @@ namespace http{
 		}
 
 		//Parse Body
-		const int body_offset = http_request.find(global::DIVIDE_BODY, start_offset + 1);
+		const int body_offset = request_text.find(global::DIVIDE_BODY, start_offset + 1);
 		if(body_offset != std::string::npos)
 		{
-			body = http_request.substr(body_offset + 2, request_length);
+			body = request_text.substr(body_offset + 2, request_length);
 		}
 		
 		//Additional header string
-		std::string data_string = http_request.substr(
+		std::string data_string = request_text.substr(
 			//No First line
 			start_offset + 1,
 			//Additional header length = Total_length - (Total_length - Start position of boddy - (-1 beacuse of two \n\n to seperate body)) - Start Position
@@ -75,20 +75,18 @@ namespace http{
 			int token_offset = current_line.find(global::HEADER_TOKEN, 0);
 
 			//Additional header's token is ':'
-			//so if ':' is not exist this is error
-			if(token_offset == std::string::npos)
+			//so if ':' is exist, this line has additional header data
+			if(token_offset != std::string::npos)
 			{
-				throw parse_exception("Can't resolve additional HTTP request, check that request");
+				utils::strings::delete_string(
+					token_offset - 1, token_offset + 1,
+					global::WHITESPACE, current_line
+				);
+
+				token_offset = current_line.find(global::HEADER_TOKEN, 0);
+
+				add(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
 			}
-
-			utils::strings::delete_string(
-				token_offset - 1, token_offset + 1,
-				global::WHITESPACE,current_line
-			);
-
-			token_offset = current_line.find(global::HEADER_TOKEN, 0);
-
-			add(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
 		}
 	}
 

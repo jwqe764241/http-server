@@ -27,9 +27,21 @@ private:
 
 	bool running;
 
+private:
+	void join_all()
+	{
+		for(std::thread& worker : workers)
+		{
+			if(worker.joinable())
+				worker.join();
+		}
+
+		std::cout << "fuck yeah" << std::endl;
+	}
+
 public:
-	thread_pool(int max_worker,int max_tasks)
-		: workers(max_worker), tasks(max_tasks), running(true)
+	thread_pool(int max_worker,int max_task)
+		: workers(max_worker), tasks(max_task), running(true)
 	{
 		for(int i = 0; i < max_worker; ++i)
 		{
@@ -46,12 +58,20 @@ public:
 	{
 		while(pool->is_running())
 		{
-			if(!pool->is_task_empty())
+			try
 			{
-				event * e = pool->pop_task();
+				if(!pool->is_task_empty())
+				{
+					auto task = pool->pop_task();
 
-				e->notify();
+					task->notify();
+				}
 			}
+			catch (const std::exception& e)
+			{
+				std::cout << "Exception Occur " << e.what() << std::endl;
+			}
+			
 		}
 	}
 
@@ -63,15 +83,6 @@ public:
 		}
 
 		join_all();
-	}
-
-	void join_all()
-	{
-		for(std::thread& worker : workers)
-		{
-			if(worker.joinable())
-				worker.join();
-		}
 	}
 
 	bool is_running()
