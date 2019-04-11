@@ -64,7 +64,6 @@ bld/
 #output file and build file for users not all
 bin/
 obj/
-test/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
