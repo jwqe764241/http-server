@@ -146,11 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\event\get_request.event.hpp" />
+    <ClInclude Include="include\event\get_request_event.hpp" />
     <ClInclude Include="include\event\circular_queue.hpp" />
     <ClInclude Include="include\event\event.hpp" />
     <ClInclude Include="include\event\thread_pool.hpp" />
+    <ClInclude Include="include\exceptions\file_not_found_exception.hpp" />
     <ClInclude Include="include\exceptions\parse_exception.hpp" />
+    <ClInclude Include="include\file\part.hpp" />
+    <ClInclude Include="include\file\path.hpp" />
     <ClInclude Include="include\http\http.hpp" />
     <ClInclude Include="include\http\http_request.hpp" />
     <ClInclude Include="include\http\http_response.hpp" />
