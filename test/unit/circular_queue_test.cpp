@@ -1,4 +1,7 @@
-#define __USE_MINGW_ANSI_STDIO 0
+#ifdef __MINGW32__
+	#define __USE_MINGW_ANSI_STDIO 0
+#endif
+
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
