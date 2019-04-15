@@ -40,7 +40,9 @@ namespace http{
 		void parse(const std::string& http_request);
 		//Add additional header data
 		void add(const std::string key, const std::string value);
+		void add(const std::map<std::string, std::string>& header);
 
+		const std::map<std::string, std::string>& get_header();
 	};
 
 }

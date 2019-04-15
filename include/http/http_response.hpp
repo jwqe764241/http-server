@@ -37,6 +37,9 @@ namespace http{
 		std::string operator[](const std::string key);
 		//Add additional header data
 		void add(const std::string key, const std::string value);
+		void add(const std::map<std::string, std::string>& header);
+
+		const std::map<std::string, std::string>& get_header();
 	};
 
 }

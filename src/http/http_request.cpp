@@ -95,6 +95,15 @@ namespace http{
 		header.insert(std::pair<std::string, std::string>(key, value));
 	}
 
+	void request::add(const std::map<std::string, std::string>& header)
+	{
+		this->header = header;
+	}
+
+	const std::map<std::string, std::string>& request::get_header()
+	{
+		return header;
+	}
 }
 
 _IMPLEMENT_END
