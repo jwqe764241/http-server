@@ -50,19 +50,19 @@ namespace http{
 		return data_stream.str();
 	}
 
-	std::string response::operator[](const std::string key)
+	void response::set_header(const std::string& key, const std::string& value)
 	{
-		return header[key];
+		header[key] = value;
 	}
 
-	void response::add(const std::string key, const std::string value)
-	{
-		header.insert(std::pair<std::string, std::string>(key, value));
-	}
-
-	void response::add(const std::map<std::string, std::string>& header)
+	void response::set_header(const std::map<std::string, std::string>& header)
 	{
 		this->header = header;
+	}
+
+	std::string response::get_header(const std::string& key)
+	{
+		return header[key];
 	}
 
 	const std::map<std::string, std::string>& response::get_header()

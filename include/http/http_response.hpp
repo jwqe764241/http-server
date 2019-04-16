@@ -32,13 +32,12 @@ namespace http{
 			std::string describe);
 		virtual ~response();
 
-		//Get option into std::string
 		std::string string();
-		std::string operator[](const std::string key);
 		//Add additional header data
-		void add(const std::string key, const std::string value);
-		void add(const std::map<std::string, std::string>& header);
+		void set_header(const std::string& key, const std::string& value);
+		void set_header(const std::map<std::string, std::string>& header);
 
+		std::string get_header(const std::string& key);
 		const std::map<std::string, std::string>& get_header();
 	};
 
