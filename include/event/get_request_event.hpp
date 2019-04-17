@@ -56,28 +56,64 @@ public:
 			socket.close();
 		}
 
+		//TODO: change
+		if (request.method == "GET")
+		{
+			do_get(request);
+		}
+		else if (request.method == "POST")
+		{
+			do_post(request);
+		}
+		else
+		{
+			server::http::response response(
+				"sad",
+				std::to_string(server::http::METHOD_NOT_ALLOWED),
+				"Method not allowed"
+			);
+
+			socket.write_some(asio::buffer(response.string()));
+			socket.close();
+		}
+	}
+
+	void do_get(server::http::request request)
+	{
+		do_post(request);
+	}
+
+	void do_post(server::http::request request)
+	{
 		//send response
 		try
 		{
-			path request_path(request.url);
-
-			std::ifstream read_stream(request.url);
+			std::ifstream read_stream("C:\\a/a.html");
 
 			//if file doesn't exist
-			if(!read_stream)
+			if (!read_stream)
 			{
 				throw server::file_not_found_exception("File doesn't exist", request.url);
 			}
 
 			server::http::response response(
-				request.version, 
-				std::to_string(server::http::OK), 
+				request.version,
+				std::to_string(server::http::OK),
 				"OK");
 
 			/*
 				get file data here
 			*/
-			
+
+			char buffer[4096] = { 0 };
+			while (!read_stream.eof())
+			{
+				read_stream.read(buffer, 4096);
+				response.body += buffer;
+			}
+
+			response.set_header("Content-Type", "text/html");
+
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();
 		}
@@ -97,7 +133,7 @@ public:
 		{
 			server::http::response response(
 				request.version,
-				std::to_string(server::http::INTERNAL_SERVER_ERROR), 
+				std::to_string(server::http::INTERNAL_SERVER_ERROR),
 				"Internal Server Error");
 
 			response.body = "Internal Server Error";
@@ -107,6 +143,5 @@ public:
 
 			throw e;
 		}
-		
 	}
 };
