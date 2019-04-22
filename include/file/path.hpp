@@ -4,9 +4,9 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include "part.hpp"
 
-static std::string divider = "/";
+#include "part.hpp"
+#include "utils/utils.hpp"
 
 class path
 {
@@ -23,18 +23,18 @@ public:
 		std::replace(path_string.begin(), path_string.end(), '\\', '/');
 
 		int position = std::string::npos;
-		position = path_string.find(divider, 0);
+		position = path_string.find(server::global::PATH_DIVIDER, 0);
 
 		if(position == 0)
 		{
 			//has divider at fist
-			position += divider.size();
+			position += server::global::PATH_DIVIDER.size();
 		}
 		else if(position > 0)
 		{
 			//has divider, not fist
 			append(part(path_string.substr(0, position)));
-			position += divider.size();
+			position += server::global::PATH_DIVIDER.size();
 		}
 		else if(position == std::string::npos && path_string.size() > 0)
 		{
@@ -50,10 +50,10 @@ public:
 
 		//get directories after first directory
 		int prev_position = position;
-		while((position = path_string.find(divider, position)) != std::string::npos)
+		while((position = path_string.find(server::global::PATH_DIVIDER, position)) != std::string::npos)
 		{
 			append(part(path_string.substr(prev_position, position - prev_position)));
-			position += divider.size();
+			position += server::global::PATH_DIVIDER.size();
 
 			prev_position = position;
 		}
@@ -72,7 +72,7 @@ public:
 	void append(const std::string& path_string)
 	{
 		//if path string has divider, it can be consist of many folder
-		if(path_string.find(divider) != std::string::npos)
+		if(path_string.find(server::global::PATH_DIVIDER) != std::string::npos)
 		{
 			this->append(path(path_string));
 		}

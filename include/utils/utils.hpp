@@ -17,6 +17,8 @@ const std::string HEADER_TOKEN(":");
 
 const std::string WHITESPACE (" ");
 
+const std::string PATH_DIVIDER("/");
+
 }
 
 _IMPLEMENT_END
