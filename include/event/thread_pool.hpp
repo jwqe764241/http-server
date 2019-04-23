@@ -35,8 +35,6 @@ private:
 			if(worker.joinable())
 				worker.join();
 		}
-
-		std::cout << "fuck yeah" << std::endl;
 	}
 
 public:

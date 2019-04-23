@@ -35,12 +35,13 @@ namespace http{
 		request(const std::string& http_request);
 		virtual ~request();
 
-		//Get option into std::string
-		std::string operator[](const std::string& key);
 		void parse(const std::string& http_request);
 		//Add additional header data
-		void add(const std::string key, const std::string value);
+		void set_header(const std::string& key, const std::string& value);
+		void set_header(const std::map<std::string, std::string>& header);
 
+		std::string get_header(const std::string& key);
+		const std::map<std::string, std::string>& get_header();
 	};
 
 }

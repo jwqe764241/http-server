@@ -15,18 +15,11 @@ namespace http{
 	}
 	catch(const parse_exception& e)
 	{
-		std::cout << "parse error : " << e.what() << std::endl;
-
 		throw e;
 	}
 
 	request::~request()
 	{
-	}
-
-	std::string request::operator[](const std::string& key)
-	{
-		return header[key];
 	}
 
 	void request::parse(const std::string& request_text)
@@ -85,16 +78,30 @@ namespace http{
 
 				token_offset = current_line.find(global::HEADER_TOKEN, 0);
 
-				add(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
+				set_header(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
 			}
 		}
 	}
 
-	void request::add(const std::string key, const std::string value)
+	void request::set_header(const std::string& key, const std::string& value)
 	{
-		header.insert(std::pair<std::string, std::string>(key, value));
+		header[key] = value;
 	}
 
+	void request::set_header(const std::map<std::string, std::string>& header)
+	{
+		this->header = header;
+	}
+
+	std::string request::get_header(const std::string& key)
+	{
+		return header[key];
+	}
+
+	const std::map<std::string, std::string>& request::get_header()
+	{
+		return header;
+	}
 }
 
 _IMPLEMENT_END

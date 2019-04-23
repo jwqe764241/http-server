@@ -44,20 +44,30 @@ namespace http{
 		if(!body.empty())
 		{
 			//Insert empty line first because body data seperated with line
-			data_stream << std::endl << body;
+			data_stream << std::endl << body << std::endl;
 		}
 
 		return data_stream.str();
 	}
 
-	std::string response::operator[](const std::string key)
+	void response::set_header(const std::string& key, const std::string& value)
+	{
+		header[key] = value;
+	}
+
+	void response::set_header(const std::map<std::string, std::string>& header)
+	{
+		this->header = header;
+	}
+
+	std::string response::get_header(const std::string& key)
 	{
 		return header[key];
 	}
 
-	void response::add(const std::string key, const std::string value)
+	const std::map<std::string, std::string>& response::get_header()
 	{
-		header.insert(std::pair<std::string, std::string>(key, value));
+		return header;
 	}
 }
 
