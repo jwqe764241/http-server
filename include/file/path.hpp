@@ -92,6 +92,28 @@ public:
 		this->parts.push_back(part);
 	}
 
+	std::string get(int index)
+	{
+		try
+		{
+			return parts.at(index).get_name();
+		}
+		catch (const std::exception & e)
+		{
+			throw;
+		}
+	}
+
+	std::string get_first()
+	{
+		return parts.front().get_name();
+	}
+
+	std::string get_last()
+	{
+		return parts.back().get_name();
+	}
+
 	std::string get_path()
 	{
 	}
