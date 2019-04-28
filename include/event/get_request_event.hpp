@@ -3,12 +3,13 @@
 #include <iostream>
 #include <fstream>
 #include <exception>
+#include <string>
 #include "asio.hpp"
 #include "http/http.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
 #include "event/event.hpp"
-#include "file/path.hpp"
+#include "file/content.hpp"
 
 #include "exceptions/parse_exception.hpp"
 #include "exceptions/file_not_found_exception.hpp"
@@ -41,7 +42,7 @@ public:
 			char buff[4096] = { 0 };
 			socket.read_some(asio::buffer(buff));
 
-			request.parse(buff);
+			request.parse(buff); 
 		}
 		catch(const server::parse_exception& e)
 		{
@@ -88,7 +89,8 @@ public:
 		//send response
 		try
 		{
-			std::ifstream read_stream("C:\\a/a.html");
+			content content("C:\\a" + request.url);
+			std::ifstream read_stream = content.get_stream();
 
 			//if file doesn't exist
 			if (!read_stream)
@@ -104,15 +106,14 @@ public:
 			/*
 				get file data here
 			*/
-
-			char buffer[4096] = { 0 };
+			char buffer[4096];
 			while (!read_stream.eof())
 			{
 				read_stream.read(buffer, 4096);
 				response.body += buffer;
 			}
 
-			response.set_header("Content-Type", "text/html");
+			response.set_header("Content-Type", content.get_type());
 
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();

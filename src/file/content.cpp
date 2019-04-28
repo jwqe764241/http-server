@@ -10,6 +10,11 @@ catch (...)
 	throw;
 }
 
+std::string content::get_path()
+{
+	return location;
+}
+
 std::string content::get_extension()
 {
 	std::string last_element = elements.get_last();
@@ -17,7 +22,7 @@ std::string content::get_extension()
 	size_t pos = last_element.find_last_of('.');
 	if (pos != std::string::npos)
 	{
-		return last_element.substr(pos);
+		return last_element.substr(pos + 1);
 	}
 	else
 	{
@@ -25,7 +30,13 @@ std::string content::get_extension()
 	}
 }
 
+std::ifstream content::get_stream()
+{
+	return std::ifstream(location);
+}
+
 std::string content::get_type()
 {
-	return type_map[get_extension()];
+	std::string extension = get_extension();
+	return type_map[extension];
 }

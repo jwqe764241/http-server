@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include <string>
 #include <map>
 
@@ -24,7 +25,9 @@ private:
 public:
 	content(std::string path);
 
+	std::string get_path();
 	std::string get_extension();
+	std::ifstream get_stream();
 	std::string get_type();
 
 };
