@@ -14,7 +14,12 @@ static std::map<std::string, std::string> type_map =
 	{"htm",  "text/html"},
 	{"js",   "text/javascript"},
 	{"txt",  "text/plain"},
-	{"xml",  "text/xml"}
+	{"xml",  "text/xml"},
+	{"gif", "image/gif"},
+	{"png", "image/png"},
+	{"jpg", "image/jpg"},
+	{"jpeg", "image/jpeg"},
+	{"bmp", "image/bmp"}
 };
 
 class content
