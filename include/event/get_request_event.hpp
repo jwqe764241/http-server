@@ -106,12 +106,9 @@ public:
 			/*
 				get file data here
 			*/
-			char buffer[4096];
-			while (!read_stream.eof())
-			{
-				read_stream.read(buffer, 4096);
-				response.body += buffer;
-			}
+			std::stringstream file_stream;
+			file_stream << read_stream.rdbuf();
+			response.body = file_stream.str();
 
 			response.set_header("Content-Type", content.get_type());
 

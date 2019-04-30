@@ -32,7 +32,7 @@ std::string content::get_extension()
 
 std::ifstream content::get_stream()
 {
-	return std::ifstream(location);
+	return std::ifstream(location, std::ifstream::binary);
 }
 
 std::string content::get_type()
