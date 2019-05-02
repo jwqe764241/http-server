@@ -19,7 +19,8 @@ static std::map<std::string, std::string> type_map =
 	{"png", "image/png"},
 	{"jpg", "image/jpg"},
 	{"jpeg", "image/jpeg"},
-	{"bmp", "image/bmp"}
+	{"bmp", "image/bmp"},
+	{"svg", "image/svg+xml"}
 };
 
 class content

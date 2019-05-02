@@ -62,7 +62,8 @@ public:
 				{
 					auto task = pool->pop_task();
 
-					task->notify();
+					if(task != nullptr)
+						task->notify();
 				}
 			}
 			catch (const std::exception& e)
