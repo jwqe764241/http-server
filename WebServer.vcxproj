@@ -152,6 +152,7 @@
     <ClInclude Include="include\event\thread_pool.hpp" />
     <ClInclude Include="include\exceptions\file_not_found_exception.hpp" />
     <ClInclude Include="include\exceptions\parse_exception.hpp" />
+    <ClInclude Include="include\file\content.hpp" />
     <ClInclude Include="include\file\part.hpp" />
     <ClInclude Include="include\file\path.hpp" />
     <ClInclude Include="include\http\http.hpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="include\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\file\content.cpp" />
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />

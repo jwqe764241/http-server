@@ -29,13 +29,21 @@ namespace logger
 			logger.out_stream << pf;
 			return logger;
 		}
-	};
 
-	enum class level
-	{
-		PRINT,
-		WARNING,
-		ERROR
+		void print(std::string log)
+		{
+			out_stream << "info : " << log << "\n";
+		}
+
+		void warning(std::string log)
+		{
+			out_stream << "warn : " << log << "\n";
+		}
+
+		void error(std::string log)
+		{
+			out_stream << "err : " << log << "\n";
+		}
 	};
 }
 
