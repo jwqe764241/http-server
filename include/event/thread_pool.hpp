@@ -76,10 +76,8 @@ public:
 
 	void stop()
 	{
-		{
-			std::lock_guard<std::mutex> guard(this->task_mutex);
-			running = false;
-		}
+		std::lock_guard<std::mutex> guard(this->task_mutex);
+		running = false;
 
 		join_all();
 	}
