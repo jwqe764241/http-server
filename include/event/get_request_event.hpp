@@ -68,7 +68,7 @@ public:
 		else
 		{
 			server::http::response response(
-				"sad",
+				request.version,
 				std::to_string(server::http::METHOD_NOT_ALLOWED),
 				"Method not allowed"
 			);
