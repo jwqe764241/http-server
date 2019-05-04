@@ -5,9 +5,7 @@
 #include <memory>
 #include <iostream>
 
-
 #include "asio.hpp"
-
 #include "utils/utils.hpp"
 #include "utils/basic_option.hpp"
 #include "event/event.hpp"
@@ -25,7 +23,6 @@ private:
 	asio::ip::tcp::acceptor acceptor;
 
 	thread_pool<std::shared_ptr<event>> event_pool;
-
 
 private:
 	//accept connection and reday to communication
@@ -49,7 +46,6 @@ public:
 	void start(std::string ip, std::string port);
 	//release all resource
 	void stop();
-
 };
 
 _IMPLEMENT_END

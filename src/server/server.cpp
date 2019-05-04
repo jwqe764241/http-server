@@ -2,8 +2,8 @@
 
 _IMPLEMENT_SCOPE
 
-server::server(int max_worker, int max_task): 
-	acceptor(io_service),
+server::server(int max_worker, int max_task)
+	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
 	event_pool(max_worker, max_task)
@@ -30,7 +30,6 @@ void server::run()
 		//...
 	}
 }
-
 
 void server::on_accept(const asio::error_code error_code)
 {
@@ -65,7 +64,6 @@ void server::on_stop(const asio::error_code error_code)
 	event_pool.stop();
 	acceptor.close();
 }
-
 
 void server::start(std::string ip, std::string port)
 {

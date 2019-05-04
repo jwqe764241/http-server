@@ -7,8 +7,6 @@
 #include "circular_queue.hpp"
 #include "event.hpp"
 
-
-
 /*
 	thread pool
 	process task with mant thread

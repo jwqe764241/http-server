@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-#include "file\path.hpp"
+#include "file/path.hpp"
 
 static std::map<std::string, std::string> type_map =
 {
@@ -28,6 +28,7 @@ class content
 private:
 	std::string location;
 	path elements;
+
 public:
 	content(std::string path);
 
@@ -35,5 +36,4 @@ public:
 	std::string get_extension();
 	std::ifstream get_stream();
 	std::string get_type();
-
 };

@@ -7,12 +7,12 @@
 
 #include "utils/utils.hpp"
 #include "utils/basic_option.hpp"
-
 #include "exceptions/parse_exception.hpp"
 
 _IMPLEMENT_SCOPE
-namespace option{
 
+namespace option
+{
 	class file_option : public basic_option<std::string, std::string>
 	{
 	public:
@@ -23,6 +23,6 @@ namespace option{
 
 		void parse(std::ifstream& file_stream);
 	};
-
 }
+
 _IMPLEMENT_END

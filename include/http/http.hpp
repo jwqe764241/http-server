@@ -6,8 +6,8 @@
 
 _IMPLEMENT_SCOPE
 
-namespace http{
-
+namespace http
+{
 	enum status
 	{
 		//100 ~ 103
