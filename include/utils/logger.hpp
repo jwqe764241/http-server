@@ -31,7 +31,7 @@ namespace logger
 			return logger;
 		}
 
-		void print(std::string log)
+		void info(std::string log)
 		{
 			out_stream << "info : " << log << "\n";
 		}

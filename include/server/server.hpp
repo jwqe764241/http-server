@@ -1,6 +1,5 @@
 #pragma once
 
-#include <asio.hpp>
 #include <csignal>
 #include <memory>
 #include <iostream>
@@ -8,6 +7,7 @@
 #include "asio.hpp"
 #include "utils/utils.hpp"
 #include "utils/basic_option.hpp"
+#include "utils/logger.hpp"
 #include "event/event.hpp"
 #include "event/get_request_event.hpp"
 #include "event/thread_pool.hpp"
@@ -16,6 +16,8 @@ _IMPLEMENT_SCOPE
 
 class server
 {
+	logger::logger logger;
+
 private:
 	asio::io_service io_service;
 	asio::signal_set signal;

@@ -6,7 +6,8 @@ server::server(int max_worker, int max_task)
 	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
-	event_pool(max_worker, max_task)
+	event_pool(max_worker, max_task),
+	logger(std::cout)
 {
 }
 
@@ -47,12 +48,12 @@ void server::on_accept(const asio::error_code error_code)
 		}
 		catch(std::exception& e)
 		{
-			std::cout << e.what() << std::endl;
+			logger.error(e.what());
 		}
 	}
 	else
 	{
-		std::cout << error_code.value() << " : " << error_code.message() << std::endl;
+		logger.error(error_code.value() +  " : " + error_code.message());
 	}
 
 	listen_socket.close();
@@ -78,7 +79,7 @@ void server::start(std::string ip, std::string port)
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
-	std::cout << "Now, server is running...." << std::endl;
+	logger.info("Now, server is running....");
 
 	run();
 }
