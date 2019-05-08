@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <iterator>
 
-#include "http/http.hpp"
 #include "utils/utils.hpp"
 #include "exceptions/parse_exception.hpp"
 
