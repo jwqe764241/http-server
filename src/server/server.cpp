@@ -73,9 +73,17 @@ void server::start(std::string ip, std::string port)
 	asio::ip::tcp::resolver::query query({ip, port});
 
 	asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
-	acceptor.open(endpoint.protocol());
-	acceptor.bind(endpoint);
-	acceptor.listen(asio::socket_base::max_connections);
+	try
+	{
+		acceptor.open(endpoint.protocol());
+		acceptor.bind(endpoint);
+		acceptor.listen(asio::socket_base::max_connections);
+	}
+	catch (const std::exception & e)
+	{
+		logger.error(e.what());
+		return;
+	}
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
