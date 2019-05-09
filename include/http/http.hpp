@@ -1,5 +1,6 @@
 #pragma once
 
+#include <exception>
 #include <map>
 
 #include "utils/utils.hpp"
@@ -80,6 +81,27 @@ namespace http
 		NOT_EXTENDED = 510,
 		NETWORK_AUTHENTICATION_REQUIRED
 	};
+
+	const std::map<int, std::string> status_map =
+	{
+		{status::OK, "Ok"},
+		{status::BAD_REQUEST, "Bad request"},
+		{status::NOT_FOUND, "Not found"},
+		{status::METHOD_NOT_ALLOWED, "Method not allowed"},
+		{status::INTERNAL_SERVER_ERROR, "Intenal server error"}
+	};
+
+	static std::string get_status_string(int key)
+	{
+		try
+		{
+			return status_map.at(key);
+		}
+		catch (const std::out_of_range & e)
+		{
+			throw e;
+		}
+	}
 }
 
 _IMPLEMENT_END

@@ -45,12 +45,14 @@ public:
 		}
 		catch(const server::parse_exception& e)
 		{
+			std::string status_string = server::http::get_status_string(server::http::BAD_REQUEST);
+
 			server::http::response response(
 				"Unknown",
 				std::to_string(server::http::BAD_REQUEST),
-				"Bad Request");
+				status_string);
 
-			response.body = "Bad Request";
+			response.body = status_string;
 
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();
@@ -67,11 +69,14 @@ public:
 		}
 		else
 		{
+			std::string status_string = server::http::get_status_string(server::http::METHOD_NOT_ALLOWED);
+
 			server::http::response response(
 				request.version,
 				std::to_string(server::http::METHOD_NOT_ALLOWED),
-				"Method not allowed"
-			);
+				status_string);
+
+			response.body = status_string;
 
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();
@@ -97,10 +102,12 @@ public:
 				throw server::file_not_found_exception("File doesn't exist", request.url);
 			}
 
+			std::string status_string = server::http::get_status_string(server::http::OK);
+
 			server::http::response response(
 				request.version,
 				std::to_string(server::http::OK),
-				"OK");
+				status_string);
 
 			/*
 				get file data here
@@ -116,24 +123,28 @@ public:
 		}
 		catch (const server::file_not_found_exception& e)
 		{
+			std::string status_string = server::http::get_status_string(server::http::NOT_FOUND);
+
 			server::http::response response(
 				request.version,
 				std::to_string(server::http::NOT_FOUND),
-				"Not Found");
+				status_string);
 
-			response.body = "Not Found";
+			response.body = status_string;
 
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();
 		}
 		catch (const std::exception& e)
 		{
+			std::string status_string = server::http::get_status_string(server::http::INTERNAL_SERVER_ERROR);
+
 			server::http::response response(
 				request.version,
 				std::to_string(server::http::INTERNAL_SERVER_ERROR),
-				"Internal Server Error");
+				status_string);
 
-			response.body = "Internal Server Error";
+			response.body = status_string;
 
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();
