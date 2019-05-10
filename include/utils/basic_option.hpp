@@ -31,7 +31,6 @@ public:
 		
 	virtual ~basic_option()
 	{
-		//nothing??
 	}
 
 	void add(const std::pair<t_key, t_val>& element)
@@ -39,12 +38,17 @@ public:
 		container.insert(element);
 	}
 
-	int remove(const t_key key)
+	bool has(const t_key& key)
+	{
+		return container.find(key) != container.end();
+	}
+
+	int remove(const t_key& key)
 	{
 		return container.erase(key);
 	}
 
-	t_val operator[](const t_key key)
+	t_val& operator[](const t_key& key)
 	{
 		return container[key];
 	}
