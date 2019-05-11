@@ -1,17 +1,16 @@
 #pragma once
 
+#include <map>
 #include <sstream>
 #include <string>
 
-#include "http/http.hpp"
 #include "utils/utils.hpp"
-
 #include "exceptions/parse_exception.hpp"
 
 _IMPLEMENT_SCOPE
 
-namespace http{
-
+namespace http
+{
 	struct response
 	{
 	public:
@@ -24,6 +23,7 @@ namespace http{
 		std::map<std::string, std::string> header;
 		//Body data
 		std::string body;
+
 	public:
 		response();
 		response(
@@ -40,7 +40,6 @@ namespace http{
 		std::string get_header(const std::string& key);
 		const std::map<std::string, std::string>& get_header();
 	};
-
 }
 
 _IMPLEMENT_END

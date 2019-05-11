@@ -2,8 +2,8 @@
 
 _IMPLEMENT_SCOPE
 
-namespace http{
-
+namespace http
+{
 	request::request()
 	{
 	}

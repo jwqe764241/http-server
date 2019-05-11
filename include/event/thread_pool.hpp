@@ -1,13 +1,13 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <thread>
 #include <mutex>
 
 #include "circular_queue.hpp"
 #include "event.hpp"
-
-
+#include "utils/logger.hpp"
 
 /*
 	thread pool
@@ -54,6 +54,8 @@ public:
 
 	static void processTask(thread_pool* pool, int number)
 	{
+		server::logger::logger logger(std::cout);
+
 		while(pool->is_running())
 		{
 			try
@@ -62,12 +64,13 @@ public:
 				{
 					auto task = pool->pop_task();
 
-					task->notify();
+					if(task != nullptr)
+						task->notify();
 				}
 			}
 			catch (const std::exception& e)
 			{
-				std::cout << "Exception Occur " << e.what() << std::endl;
+				logger.error(e.what());
 			}
 			
 		}
@@ -75,10 +78,8 @@ public:
 
 	void stop()
 	{
-		{
-			std::lock_guard<std::mutex> guard(this->task_mutex);
-			running = false;
-		}
+		std::lock_guard<std::mutex> guard(this->task_mutex);
+		running = false;
 
 		join_all();
 	}

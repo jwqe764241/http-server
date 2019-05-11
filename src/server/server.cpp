@@ -2,11 +2,12 @@
 
 _IMPLEMENT_SCOPE
 
-server::server(int max_worker, int max_task): 
-	acceptor(io_service),
+server::server(int max_worker, int max_task)
+	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
-	event_pool(max_worker, max_task)
+	event_pool(max_worker, max_task),
+	logger(std::cout)
 {
 }
 
@@ -31,7 +32,6 @@ void server::run()
 	}
 }
 
-
 void server::on_accept(const asio::error_code error_code)
 {
 	if(!acceptor.is_open())
@@ -48,12 +48,12 @@ void server::on_accept(const asio::error_code error_code)
 		}
 		catch(std::exception& e)
 		{
-			std::cout << e.what() << std::endl;
+			logger.error(e.what());
 		}
 	}
 	else
 	{
-		std::cout << error_code.value() << " : " << error_code.message() << std::endl;
+		logger.error(error_code.value() +  " : " + error_code.message());
 	}
 
 	listen_socket.close();
@@ -66,7 +66,6 @@ void server::on_stop(const asio::error_code error_code)
 	acceptor.close();
 }
 
-
 void server::start(std::string ip, std::string port)
 {
 	//TODO: should set localhost and 8080 port when ip and port are not specified.
@@ -74,13 +73,21 @@ void server::start(std::string ip, std::string port)
 	asio::ip::tcp::resolver::query query({ip, port});
 
 	asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
-	acceptor.open(endpoint.protocol());
-	acceptor.bind(endpoint);
-	acceptor.listen(asio::socket_base::max_connections);
+	try
+	{
+		acceptor.open(endpoint.protocol());
+		acceptor.bind(endpoint);
+		acceptor.listen(asio::socket_base::max_connections);
+	}
+	catch (const std::exception & e)
+	{
+		logger.error(e.what());
+		return;
+	}
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
-	std::cout << "Now, server is running...." << std::endl;
+	logger.info("Now, server is running....");
 
 	run();
 }
