@@ -54,7 +54,7 @@ public:
 
 	static void processTask(thread_pool* pool, int number)
 	{
-		server::logger::logger logger(std::cout);
+		logger logger(std::cout);
 
 		while(pool->is_running())
 		{

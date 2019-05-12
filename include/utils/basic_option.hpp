@@ -4,8 +4,6 @@
 #include <string>
 #include <map>
 
-#include "exceptions/parse_exception.hpp"
-
 template <typename t_key, typename t_val>
 class basic_option
 {
