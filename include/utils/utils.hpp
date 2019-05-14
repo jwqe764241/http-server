@@ -5,9 +5,7 @@
 #define _IMPLEMENT_SCOPE namespace server{
 #define _IMPLEMENT_END }
 
-_IMPLEMENT_SCOPE
-
-namespace global
+namespace character
 {
 	const std::string LINE_CHANGE("\n");
 	const std::string DIVIDE_BODY("\n\n");
@@ -15,8 +13,6 @@ namespace global
 	const std::string WHITESPACE (" ");
 	const std::string PATH_DIVIDER("/");
 }
-
-_IMPLEMENT_END
 
 
 namespace utils
