@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <sstream>
 
 #include "part.hpp"
 #include "utils/utils.hpp"
@@ -116,10 +117,17 @@ public:
 
 	std::string get_path()
 	{
+		//TODO: how to know this path starts with root directory?
+		std::stringstream stream;
+
+		for (const part& part : parts)
+		{
+			stream << part.get_name() << "\\";
+		}
+
+		return stream.str();
 	}
 
-
-	//append parts
 	void operator+=(const std::string& lhs)
 	{
 		append(lhs);

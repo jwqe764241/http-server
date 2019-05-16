@@ -12,6 +12,8 @@ namespace character
 	const std::string HEADER_TOKEN(":");
 	const std::string WHITESPACE (" ");
 	const std::string PATH_DIVIDER("/");
+	const std::string PARENT_DIRECTORY("..");
+
 }
 
 
