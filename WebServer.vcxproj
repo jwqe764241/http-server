@@ -163,10 +163,10 @@
     <ClInclude Include="include\utils\file_option.hpp" />
     <ClInclude Include="include\utils\basic_option.hpp" />
     <ClInclude Include="include\utils\utils.hpp" />
-    <ClInclude Include="src\file\part.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\file\content.cpp" />
+    <ClCompile Include="src\file\part.cpp" />
     <ClCompile Include="src\file\path.cpp" />
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
