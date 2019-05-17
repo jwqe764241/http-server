@@ -17,7 +17,7 @@ std::string content::get_path()
 
 std::string content::get_extension()
 {
-	std::string last_element = elements.get_last();
+	std::string last_element = elements.get_last_part().get_name();
 
 	size_t pos = last_element.find_last_of('.');
 	if (pos != std::string::npos)
