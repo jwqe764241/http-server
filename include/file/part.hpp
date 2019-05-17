@@ -8,30 +8,8 @@ private:
 	std::string name;
 
 public:
-	part(std::string name)
-	{
-		for(std::string::iterator i = name.begin(); i != name.end(); ++i)
-		{
-			if((*i) == ' ')
-			{
-				name.erase(i);
-				++i;
-			}
-			else
-			{
-				break;
-			}
-		}
+	part(std::string name);
+	~part();
 
-		this->name = name;
-	}
-
-	~part()
-	{
-	}
-
-	std::string get_name() const
-	{
-		return name;
-	}
+	std::string get_name() const;
 };
