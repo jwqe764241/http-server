@@ -37,6 +37,5 @@ std::ifstream content::get_stream()
 
 std::string content::get_type()
 {
-	std::string extension = get_extension();
-	return type_map[extension];
+	return type_map[get_extension()];
 }
