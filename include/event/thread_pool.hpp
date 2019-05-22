@@ -113,4 +113,14 @@ public:
 		std::lock_guard<std::mutex> guard(this->task_mutex);
 		return tasks.dequeue();
 	}
+
+	size_t get_worker_count()
+	{
+		return workers.size();
+	}
+
+	size_t get_max_task_count()
+	{
+		return tasks.size();
+	}
 };
