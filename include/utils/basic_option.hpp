@@ -26,7 +26,7 @@ public:
 			container.erase(pair.first);
 		}
 	}
-		
+
 	virtual ~basic_option()
 	{
 	}
@@ -54,5 +54,15 @@ public:
 	const std::map<t_key, t_val>& get_container()
 	{
 		return container;
+	}
+
+	basic_option<t_key, t_val>& operator=(const basic_option& other)
+	{
+		if (this != &other)
+		{
+			this->container = other.container;
+		}
+
+		return *this;
 	}
 };

@@ -16,4 +16,6 @@ public:
 	~file_option();
 
 	void parse(std::ifstream& file_stream);
+
+	file_option& operator=(const file_option& other);
 };
