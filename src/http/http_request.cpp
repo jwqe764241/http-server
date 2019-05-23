@@ -32,7 +32,7 @@ namespace http
 		const int request_length = request_text.length();
 
 		//Parse First line
-		const int start_offset = request_text.find(global::LINE_CHANGE, 0);
+		const int start_offset = request_text.find(character::LINE_CHANGE, 0);
 		if(start_offset != std::string::npos)
 		{
 			std::stringstream start_stream(request_text.substr(0, start_offset));
@@ -47,7 +47,7 @@ namespace http
 		}
 
 		//Parse Body
-		const int body_offset = request_text.find(global::DIVIDE_BODY, start_offset + 1);
+		const int body_offset = request_text.find(character::DIVIDE_BODY, start_offset + 1);
 		if(body_offset != std::string::npos)
 		{
 			body = request_text.substr(body_offset + 2, request_length);
@@ -65,7 +65,7 @@ namespace http
 		std::istringstream data_stream(data_string);
 		for(std::string current_line; getline(data_stream, current_line);)
 		{
-			int token_offset = current_line.find(global::HEADER_TOKEN, 0);
+			int token_offset = current_line.find(character::HEADER_TOKEN, 0);
 
 			//Additional header's token is ':'
 			//so if ':' is exist, this line has additional header data
@@ -73,10 +73,10 @@ namespace http
 			{
 				utils::strings::delete_string(
 					token_offset - 1, token_offset + 1,
-					global::WHITESPACE, current_line
+					character::WHITESPACE, current_line
 				);
 
-				token_offset = current_line.find(global::HEADER_TOKEN, 0);
+				token_offset = current_line.find(character::HEADER_TOKEN, 0);
 
 				set_header(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
 			}

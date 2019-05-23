@@ -5,18 +5,16 @@
 #define _IMPLEMENT_SCOPE namespace server{
 #define _IMPLEMENT_END }
 
-_IMPLEMENT_SCOPE
-
-namespace global
+namespace character
 {
 	const std::string LINE_CHANGE("\n");
 	const std::string DIVIDE_BODY("\n\n");
 	const std::string HEADER_TOKEN(":");
 	const std::string WHITESPACE (" ");
 	const std::string PATH_DIVIDER("/");
-}
+	const std::string PARENT_DIRECTORY("..");
 
-_IMPLEMENT_END
+}
 
 
 namespace utils

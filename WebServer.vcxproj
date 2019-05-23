@@ -166,6 +166,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\file\content.cpp" />
+    <ClCompile Include="src\file\part.cpp" />
+    <ClCompile Include="src\file\path.cpp" />
     <ClCompile Include="src\http\http_request.cpp" />
     <ClCompile Include="src\http\http_response.cpp" />
     <ClCompile Include="src\main.cpp" />

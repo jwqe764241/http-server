@@ -30,8 +30,8 @@ namespace http
 		if(http_version.empty() && response_code.empty() && describe.empty())
 			throw parse_exception("Start line data can't be a null, check the startline data");
 
-		data_stream << http_version << global::WHITESPACE
-					<< response_code << global::WHITESPACE
+		data_stream << http_version << character::WHITESPACE
+					<< response_code << character::WHITESPACE
 					<< describe << std::endl;
 
 		//Additional header data

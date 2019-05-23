@@ -16,7 +16,7 @@ _IMPLEMENT_SCOPE
 
 class server
 {
-	logger::logger logger;
+	logger logger;
 
 private:
 	asio::io_service io_service;

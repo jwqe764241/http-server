@@ -46,7 +46,11 @@ public:
 			int temp_pos = front;
 			front = (front + 1) % container.size();
 
-			return container[temp_pos];
+			return container[temp_pos]; 
+		}
+		else
+		{
+			return 0;
 		}
 	}
 
