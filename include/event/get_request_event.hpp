@@ -33,7 +33,7 @@ public:
 
 	virtual void notify() override
 	{
-		server::http::request request;
+		web::http::request request;
 
 		//parse request
 		try
@@ -43,13 +43,13 @@ public:
 
 			request.parse(buff); 
 		}
-		catch(const server::parse_exception& e)
+		catch(const web::parse_exception& e)
 		{
-			std::string status_string = server::http::get_status_string(server::http::BAD_REQUEST);
+			std::string status_string = web::http::get_status_string(web::http::BAD_REQUEST);
 
-			server::http::response response(
+			web::http::response response(
 				"Unknown",
-				std::to_string(server::http::BAD_REQUEST),
+				std::to_string(web::http::BAD_REQUEST),
 				status_string);
 
 			response.body = status_string;
@@ -69,11 +69,11 @@ public:
 		}
 		else
 		{
-			std::string status_string = server::http::get_status_string(server::http::METHOD_NOT_ALLOWED);
+			std::string status_string = web::http::get_status_string(web::http::METHOD_NOT_ALLOWED);
 
-			server::http::response response(
+			web::http::response response(
 				request.version,
-				std::to_string(server::http::METHOD_NOT_ALLOWED),
+				std::to_string(web::http::METHOD_NOT_ALLOWED),
 				status_string);
 
 			response.body = status_string;
@@ -83,12 +83,12 @@ public:
 		}
 	}
 
-	void do_get(server::http::request request)
+	void do_get(web::http::request request)
 	{
 		do_post(request);
 	}
 
-	void do_post(server::http::request request)
+	void do_post(web::http::request request)
 	{
 		//send response
 		try
@@ -99,14 +99,14 @@ public:
 			//if file doesn't exist
 			if (!read_stream)
 			{
-				throw server::file_not_found_exception("File doesn't exist", request.url);
+				throw web::file_not_found_exception("File doesn't exist", request.url);
 			}
 
-			std::string status_string = server::http::get_status_string(server::http::OK);
+			std::string status_string = web::http::get_status_string(web::http::OK);
 
-			server::http::response response(
+			web::http::response response(
 				request.version,
-				std::to_string(server::http::OK),
+				std::to_string(web::http::OK),
 				status_string);
 
 			/*
@@ -121,13 +121,13 @@ public:
 			socket.write_some(asio::buffer(response.string()));
 			socket.close();
 		}
-		catch (const server::file_not_found_exception& e)
+		catch (const web::file_not_found_exception& e)
 		{
-			std::string status_string = server::http::get_status_string(server::http::NOT_FOUND);
+			std::string status_string = web::http::get_status_string(web::http::NOT_FOUND);
 
-			server::http::response response(
+			web::http::response response(
 				request.version,
-				std::to_string(server::http::NOT_FOUND),
+				std::to_string(web::http::NOT_FOUND),
 				status_string);
 
 			response.body = status_string;
@@ -137,11 +137,11 @@ public:
 		}
 		catch (const std::exception& e)
 		{
-			std::string status_string = server::http::get_status_string(server::http::INTERNAL_SERVER_ERROR);
+			std::string status_string = web::http::get_status_string(web::http::INTERNAL_SERVER_ERROR);
 
-			server::http::response response(
+			web::http::response response(
 				request.version,
-				std::to_string(server::http::INTERNAL_SERVER_ERROR),
+				std::to_string(web::http::INTERNAL_SERVER_ERROR),
 				status_string);
 
 			response.body = status_string;

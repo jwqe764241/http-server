@@ -3,7 +3,6 @@
 
 int main(int argc, char ** argv)
 {
-
 	file_option option;
 
 	try
@@ -14,10 +13,10 @@ int main(int argc, char ** argv)
 	{
 		std::cout << e.what() << std::endl;
 	}
-	
+
 	try
 	{
-		server::server server(
+		web::server server(
 			option.has("worker") ? std::stoi(option["worker"]) : 1,
 			option.has("max_task") ? std::stoi(option["max_task"]) : 200);
 
