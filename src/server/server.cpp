@@ -66,7 +66,7 @@ void server::on_stop(const asio::error_code error_code)
 	acceptor.close();
 }
 
-void server::start(std::string ip, std::string port)
+void server::start(std::string ip, std::string port, std::string root_path)
 {
 	//TODO: should set localhost and 8080 port when ip and port are not specified.
 	asio::ip::tcp::resolver resolver(io_service);
@@ -85,6 +85,8 @@ void server::start(std::string ip, std::string port)
 		return;
 	}
 
+	this->root_path = root_path;
+
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
 	logger.info("Now, server is running....");
@@ -96,6 +98,11 @@ void server::stop()
 {
 	signal.async_wait(std::bind(&server::on_stop, this, std::placeholders::_1));
 	io_service.stop();
+}
+
+std::string server::get_root_path()
+{
+	return root_path;
 }
 
 _IMPLEMENT_END

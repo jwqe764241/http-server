@@ -22,7 +22,8 @@ int main(int argc, char ** argv)
 
 		server.start(
 			option.has("ip") ? option["ip"] : "127.0.0.1",
-			option.has("port") ? option["port"] : "8080");
+			option.has("port") ? option["port"] : "8080",
+			option.has("root_path") ? option["root_path"] : "./");
 	}
 	catch (const std::exception& e)
 	{
