@@ -1,7 +1,7 @@
 #include "event/get_request_event.hpp"
 
-get_request_event::get_request_event(asio::io_service& service, asio::ip::tcp::socket socket)
-	: socket(std::move(socket))
+get_request_event::get_request_event(asio::io_service& service, asio::ip::tcp::socket socket, web::server* server)
+	: socket(std::move(socket)), server(server)
 {
 }
 
@@ -71,7 +71,7 @@ void get_request_event::do_post(web::http::request request)
 	//send response
 	try
 	{
-		content content("C:\\a" + request.url);
+		content content(server->get_root_path() + request.url);
 		std::ifstream read_stream = content.get_stream();
 
 		//if file doesn't exist

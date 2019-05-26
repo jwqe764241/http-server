@@ -165,6 +165,7 @@
     <ClInclude Include="include\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\event\get_request_event.cpp" />
     <ClCompile Include="src\file\content.cpp" />
     <ClCompile Include="src\file\part.cpp" />
     <ClCompile Include="src\file\path.cpp" />
