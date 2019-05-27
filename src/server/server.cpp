@@ -2,13 +2,15 @@
 
 _IMPLEMENT_SCOPE
 
-server::server(int max_worker, int max_task)
+server::server(int worker_number, int max_task)
 	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
-	event_pool(max_worker, max_task),
+	event_pool(worker_number, max_task),
 	logger(std::cout)
 {
+	this->worker_number = worker_number;
+	this->max_task = max_task;
 }
 
 server::~server()
@@ -88,6 +90,13 @@ void server::start(std::string ip, std::string port, std::string root_path)
 	this->root_path = root_path;
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
+
+	logger << "Server configured" << "\n";
+	logger << "  ip : " << ip << "\n";
+	logger << "  port : " << port << "\n";
+	logger << "  root path : " << root_path << "\n";
+	logger << "  workers : " << worker_number << "\n";
+	logger << "  max task : " << max_task << "\n\n";
 
 	logger.info("Now, server is running....");
 

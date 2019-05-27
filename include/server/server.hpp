@@ -25,6 +25,8 @@ private:
 	asio::ip::tcp::acceptor acceptor;
 
 	std::string root_path;
+	int worker_number;
+	int max_task;
 	thread_pool<std::shared_ptr<event>> event_pool;
 
 private:

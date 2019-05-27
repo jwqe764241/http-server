@@ -17,7 +17,7 @@ int main(int argc, char ** argv)
 	try
 	{
 		web::server server(
-			option.has("worker") ? std::stoi(option["worker"]) : 1,
+			option.has("workers") ? std::stoi(option["workers"]) : 1,
 			option.has("max_task") ? std::stoi(option["max_task"]) : 200);
 
 		server.start(
