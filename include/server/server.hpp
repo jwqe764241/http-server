@@ -24,6 +24,9 @@ private:
 	asio::ip::tcp::socket listen_socket;
 	asio::ip::tcp::acceptor acceptor;
 
+	std::string root_path;
+	int worker_number;
+	int max_task;
 	thread_pool<std::shared_ptr<event>> event_pool;
 
 private:
@@ -45,9 +48,11 @@ public:
 
 	//server start end function
 	//get all resource
-	void start(std::string ip, std::string port);
+	void start(std::string ip, std::string port, std::string root_path);
 	//release all resource
 	void stop();
+
+	std::string get_root_path();
 };
 
 _IMPLEMENT_END

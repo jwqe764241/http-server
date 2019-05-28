@@ -55,3 +55,13 @@ void file_option::parse(std::ifstream& file_stream)
 		throw std::ifstream::failure("Can't access option file");
 	}
 }
+
+file_option& file_option::operator=(const file_option& other)
+{
+	if (this != &other)
+	{
+		this->container = other.container;
+	}
+
+	return *this;
+}
