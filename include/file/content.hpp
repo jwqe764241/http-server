@@ -20,7 +20,10 @@ static std::map<std::string, std::string> type_map =
 	{"jpg", "image/jpg"},
 	{"jpeg", "image/jpeg"},
 	{"bmp", "image/bmp"},
-	{"svg", "image/svg+xml"}
+	{"svg", "image/svg+xml"},
+	{"woff", "application/x-font-woff"},
+	{"woff2", "application/x-font-woff"},
+	{"ttf", "application/x-font-ttf"}
 };
 
 class content
