@@ -36,10 +36,46 @@ namespace http
 		if(start_offset != std::string::npos)
 		{
 			std::stringstream start_stream(request_text.substr(0, start_offset));
+			
+			std::string method;
+			std::string url;
+			std::string version;
 
 			start_stream >> method;
 			start_stream >> url;
 			start_stream >> version;
+
+			this->method = method;
+
+			int parameter_offset = url.find('?', 0);
+			if (parameter_offset != std::string::npos)
+			{
+				this->url = url.substr(0, parameter_offset);
+
+				std::string parameter_list = url.substr(parameter_offset + 1, url.length());
+				std::replace(parameter_list.begin(), parameter_list.end(), '&', ' ');
+
+				std::stringstream parameter_stream(parameter_list);
+				std::string temp;
+				while (parameter_stream >> temp)
+				{
+					int key_offset = temp.find('=', 0);
+					if (key_offset != std::string::npos)
+					{
+						set_header(temp.substr(0, key_offset), temp.substr(key_offset + 1, temp.length()));
+					}
+					else
+					{
+						set_header(temp, "");
+					}
+				}
+			}
+			else
+			{
+				this->url = url;
+			}
+
+			this->version = version;
 		}
 		else
 		{
