@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <array>
+#include <exception>
 
 /*
 	circular queue
@@ -37,6 +38,10 @@ public:
 			container[rear] = element;
 			rear = (rear + 1) % container.size();
 		}
+		else
+		{
+			throw std::runtime_error("cannnot enqueue element : queue is full");
+		}
 	}
 
 	t_type dequeue()
@@ -50,7 +55,7 @@ public:
 		}
 		else
 		{
-			return 0;
+			throw std::runtime_error("cannnot dequeue element : queue is empty");
 		}
 	}
 
