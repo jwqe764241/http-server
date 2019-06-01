@@ -45,7 +45,6 @@ void server::on_accept(const asio::error_code error_code)
 	{
 		try
 		{
-			//TODO: fix lifetime of event. when flow exit from this function, event will be destroyed
 			event_pool.push_task(std::make_shared<get_request_event>(io_service, std::move(listen_socket), this));
 		}
 		catch(std::exception& e)
@@ -70,7 +69,6 @@ void server::on_stop(const asio::error_code error_code)
 
 void server::start(std::string ip, std::string port, std::string root_path)
 {
-	//TODO: should set localhost and 8080 port when ip and port are not specified.
 	asio::ip::tcp::resolver resolver(io_service);
 	asio::ip::tcp::resolver::query query({ip, port});
 

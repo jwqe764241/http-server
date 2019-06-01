@@ -36,7 +36,6 @@ void get_request_event::notify()
 		socket.close();
 	}
 
-	//TODO: change
 	if (request.method == "GET")
 	{
 		do_get(request);
