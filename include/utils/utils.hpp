@@ -21,7 +21,7 @@ namespace utils
 {
 	namespace strings
 	{
-		template<class RangeCount, class T>
+		template<typename RangeCount, typename T>
 		void delete_string(RangeCount first, RangeCount last, const T& find_value, T& source)
 		{
 			for(; first <= last; ++first) 
