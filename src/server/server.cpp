@@ -9,6 +9,15 @@ server::server(int worker_number, int max_task)
 	event_pool(worker_number, max_task),
 	logger(std::cout)
 {
+	if (worker_number < 1)
+	{
+		throw std::invalid_argument("worker number must be more than 1");
+	}
+	else if (max_task < 1)
+	{
+		throw std::invalid_argument("max task number must be more than 1");
+	}
+
 	this->worker_number = worker_number;
 	this->max_task = max_task;
 }
