@@ -36,10 +36,31 @@ namespace http
 		if(start_offset != std::string::npos)
 		{
 			std::stringstream start_stream(request_text.substr(0, start_offset));
+			
+			std::string method;
+			std::string url;
+			std::string version;
 
 			start_stream >> method;
 			start_stream >> url;
 			start_stream >> version;
+
+			this->method = method;
+
+			int parameter_offset = url.find('?', 0);
+			if (parameter_offset != std::string::npos)
+			{
+				this->url = url.substr(0, parameter_offset);
+
+				std::string parameter_list = url.substr(parameter_offset + 1, url.length());
+				set_header(parameter_list);
+			}
+			else
+			{
+				this->url = url;
+			}
+
+			this->version = version;
 		}
 		else
 		{
@@ -79,6 +100,26 @@ namespace http
 				token_offset = current_line.find(character::HEADER_TOKEN, 0);
 
 				set_header(current_line.substr(0, token_offset), current_line.substr(token_offset + 1, current_line.length()));
+			}
+		}
+	}
+
+	void request::set_header(std::string request_parameters)
+	{
+		std::replace(request_parameters.begin(), request_parameters.end(), '&', ' ');
+
+		std::stringstream parameter_stream(request_parameters);
+		std::string temp;
+		while (parameter_stream >> temp)
+		{
+			int key_offset = temp.find('=', 0);
+			if (key_offset != std::string::npos)
+			{
+				set_header(temp.substr(0, key_offset), temp.substr(key_offset + 1, temp.length()));
+			}
+			else
+			{
+				set_header(temp, "");
 			}
 		}
 	}

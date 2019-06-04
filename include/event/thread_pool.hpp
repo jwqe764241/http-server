@@ -64,7 +64,7 @@ public:
 				{
 					auto task = pool->pop_task();
 
-					if(task != nullptr)
+					if (task != nullptr)
 						task->notify();
 				}
 			}
@@ -105,13 +105,28 @@ public:
 	void push_task(t_task task)
 	{
 		std::lock_guard<std::mutex> guard(this->task_mutex);
-		tasks.enqueue(task);
+		
+		try
+		{
+			tasks.enqueue(task);
+		}
+		catch (const std::exception& e)
+		{
+			throw e;
+		}
 	}
 
 	t_task pop_task()
 	{
 		std::lock_guard<std::mutex> guard(this->task_mutex);
-		return tasks.dequeue();
+		try
+		{
+			return tasks.dequeue();
+		}
+		catch (const std::exception& e)
+		{
+			throw e;
+		}
 	}
 
 	size_t get_worker_count()

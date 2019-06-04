@@ -35,6 +35,7 @@ namespace http
 
 		void parse(const std::string& http_request);
 		//Add additional header data
+		void set_header(std::string request_parameters);
 		void set_header(const std::string& key, const std::string& value);
 		void set_header(const std::map<std::string, std::string>& header);
 
