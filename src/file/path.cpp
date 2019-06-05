@@ -78,6 +78,11 @@ void path::append(const part& part)
 	this->parts.push_back(part);
 }
 
+size_t path::get_size()
+{
+	return parts.size();
+}
+
 part path::get_part(int index)
 {
 	try
@@ -111,6 +116,11 @@ std::string path::get_path_string()
 	}
 
 	return stream.str();
+}
+
+const std::vector<part> path::get_part_container()
+{
+	return parts;
 }
 
 void path::operator+=(const std::string& lhs)
