@@ -105,7 +105,7 @@ part path::get_last_part()
 	return parts.back();
 }
 
-std::string path::get_path_string()
+std::string path::get_path_string(const std::vector<part>& parts)
 {
 	//TODO: how to know this path starts with root directory?
 	std::stringstream stream;
@@ -116,6 +116,33 @@ std::string path::get_path_string()
 	}
 
 	return stream.str();
+}
+
+std::string path::get_path_string()
+{
+	get_path_string(parts);
+}
+
+std::string path::get_real_path_string()
+{
+	std::vector<part> temp;
+
+	for (part part : parts)
+	{
+		if (part.get_name() == "..")
+		{
+			if (!temp.empty())
+			{
+				temp.pop_back();
+			}
+		}
+		else
+		{
+			temp.push_back(part);
+		}
+	}
+
+	return get_path_string(temp);
 }
 
 const std::vector<part> path::get_part_container()
