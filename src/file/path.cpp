@@ -110,9 +110,14 @@ std::string path::get_path_string(const std::vector<part>& parts)
 	//TODO: how to know this path starts with root directory?
 	std::stringstream stream;
 
-	for (const part& part : parts)
+	for (int i = 0; i < parts.size(); ++i)
 	{
-		stream << part.get_name() << "\\";
+		stream << parts[i].get_name();
+
+		if (i < parts.size() - 1)
+		{
+			stream << "\\";
+		}
 	}
 
 	return stream.str();

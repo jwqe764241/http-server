@@ -70,7 +70,9 @@ void get_request_event::do_post(web::http::request request)
 	//send response
 	try
 	{
-		content content(server->get_root_path() + request.url);
+		path path(request.url);
+
+		content content(server->get_root_path() + path.get_real_path_string());
 		std::ifstream read_stream = content.get_stream();
 
 		//if file doesn't exist
