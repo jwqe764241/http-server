@@ -14,6 +14,8 @@ class path
 private:
 	std::vector<part> parts;
 
+	std::string get_path_string(const std::vector<part>& parts);
+
 public:
 	path();
 	path(std::string path_string);
@@ -23,10 +25,13 @@ public:
 	void append(const path& path);
 	void append(const part& part);
 
+	size_t get_size();
 	part get_part(int index);
 	part get_first_part();
 	part get_last_part();
 	std::string get_path_string();
+	std::string get_real_path_string();
+	const std::vector<part> get_part_container();
 
 	void operator+=(const std::string& lhs);
 	void operator+=(const path& lhs);

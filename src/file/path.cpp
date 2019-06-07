@@ -78,6 +78,11 @@ void path::append(const part& part)
 	this->parts.push_back(part);
 }
 
+size_t path::get_size()
+{
+	return parts.size();
+}
+
 part path::get_part(int index)
 {
 	try
@@ -100,17 +105,54 @@ part path::get_last_part()
 	return parts.back();
 }
 
-std::string path::get_path_string()
+std::string path::get_path_string(const std::vector<part>& parts)
 {
 	//TODO: how to know this path starts with root directory?
 	std::stringstream stream;
 
-	for (const part& part : parts)
+	for (int i = 0; i < parts.size(); ++i)
 	{
-		stream << part.get_name() << "\\";
+		stream << parts[i].get_name();
+
+		if (i < parts.size() - 1)
+		{
+			stream << "\\";
+		}
 	}
 
 	return stream.str();
+}
+
+std::string path::get_path_string()
+{
+	get_path_string(parts);
+}
+
+std::string path::get_real_path_string()
+{
+	std::vector<part> temp;
+
+	for (part part : parts)
+	{
+		if (part.get_name() == "..")
+		{
+			if (!temp.empty())
+			{
+				temp.pop_back();
+			}
+		}
+		else
+		{
+			temp.push_back(part);
+		}
+	}
+
+	return get_path_string(temp);
+}
+
+const std::vector<part> path::get_part_container()
+{
+	return parts;
 }
 
 void path::operator+=(const std::string& lhs)
