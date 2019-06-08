@@ -125,7 +125,7 @@ std::string path::get_path_string(const std::vector<part>& parts)
 
 std::string path::get_path_string()
 {
-	get_path_string(parts);
+	return get_path_string(parts);
 }
 
 std::string path::get_real_path_string()
