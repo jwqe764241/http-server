@@ -23,8 +23,9 @@ TEST_CASE("path parse build test 1", "[build]")
 	REQUIRE(path.get_part(3).get_name() == "dd");
 	REQUIRE(path.get_part(4).get_name() == "ee");
 	
-	REQUIRE(path.get_path_string() == "aa/bb/cc/dd/ee");
-	REQUIRE(path.get_real_path_string() == "aa/bb/cc/dd/ee");
+	
+	REQUIRE(path.get_path_string() == "aa\\bb\\cc\\dd\\ee");
+	REQUIRE(path.get_real_path_string() == "aa\\bb\\cc\\dd\\ee");
 	
 	path.append("ff");
 	
@@ -36,7 +37,7 @@ TEST_CASE("path parse build test 1", "[build]")
 TEST_CASE("path parse build test 2","[build]")
 {
 	path path("../../aa/bb/cc/../dd/ee/");
-	/*
+	
 	REQUIRE(path.get_size() == 8);
 	
 	REQUIRE(path.get_first_part().get_name() == "..");
@@ -51,7 +52,6 @@ TEST_CASE("path parse build test 2","[build]")
 	REQUIRE(path.get_part(6).get_name() == "dd");
 	REQUIRE(path.get_part(7).get_name() == "ee");
 	
-	REQUIRE(path.get_path_string() == "../../aa/bb/cc/../dd/ee");
-	REQUIRE(path.get_real_path_string() == "aa/bb/dd/ee");
-	*/
+	REQUIRE(path.get_path_string() == "..\\..\\aa\\bb\\cc\\..\\dd\\ee");
+	REQUIRE(path.get_real_path_string() == "aa\\bb\\dd\\ee");
 }
