@@ -1,0 +1,17 @@
+BIN_PATH=bin
+OBJ_PATH=obj
+SRC_PATH=src
+INCLUDE_PATH=include
+
+
+INCLUDES = -I $(INCLUDE_PATH)
+CPP_VERSION = -std=c++14
+DEBUG_FLAGS = -D DEBUG
+RELEASE_FLAGS = -D NDEBUG
+
+
+CC = g++
+
+
+clean:
+	rm -rf $(OBJ_DIR)/*.* $(BIN_DIR)/*.*
