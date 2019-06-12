@@ -10,13 +10,13 @@ SRC_PATH = ./src
 # Space-separated pkg-config libraries used by this project
 LIBS = 
 # General compiler flags
-COMPILE_FLAGS = -std=c++14 -Wall -Wextra -g
+COMPILE_FLAGS = -pthread -std=c++11 -Wall -Wextra -g -D ASIO_STANDALONE
 # Additional release-specific flags
 RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
-INCLUDES = -I ./include -I ./lib/asio/include -D ASIO_STANDALONE
+INCLUDES = -I ./include -I ./lib/asio/include
 # General linker settings
 LINK_FLAGS =
 # Additional release-specific linker settings

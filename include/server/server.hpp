@@ -3,6 +3,7 @@
 #include <csignal>
 #include <memory>
 #include <iostream>
+#include <functional>
 
 #include "asio.hpp"
 #include "utils/utils.hpp"
