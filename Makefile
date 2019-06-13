@@ -10,7 +10,7 @@ SRC_PATH = ./src
 # Space-separated pkg-config libraries used by this project
 LIBS = 
 # General compiler flags
-COMPILE_FLAGS = -pthread -std=c++11 -Wall -Wextra -g -D ASIO_STANDALONE
+COMPILE_FLAGS = -std=c++11 -Wall -Wextra -g -D ASIO_STANDALONE
 # Additional release-specific flags
 RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
@@ -18,7 +18,7 @@ DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
 INCLUDES = -I ./include -I ./lib/asio/include
 # General linker settings
-LINK_FLAGS =
+LINK_FLAGS = -pthread
 # Additional release-specific linker settings
 RLINK_FLAGS =
 # Additional debug-specific linker settings
@@ -198,9 +198,6 @@ clean:
 
 # Main rule, checks the executable and symlinks to the output
 all: $(BIN_PATH)/$(BIN_NAME)
-	@echo "Making symlink: $(BIN_NAME) -> $<"
-	@$(RM) $(BIN_NAME)
-	@ln -s $(BIN_PATH)/$(BIN_NAME) $(BIN_NAME)
 
 # Link the executable
 $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
