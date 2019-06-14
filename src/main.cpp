@@ -9,6 +9,11 @@ int main(int argc, char ** argv)
 	{
 		option = file_option(std::ifstream("TestOption.opt"));
 	}
+	catch (const std::ifstream::failure& e)
+	{
+		std::cout << "No option file or cannot access to option file," << "\n";
+		std::cout << "Will use default options instead." << "\n\n";
+	}
 	catch (const std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
