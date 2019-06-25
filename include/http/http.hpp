@@ -82,7 +82,7 @@ namespace http
 		NETWORK_AUTHENTICATION_REQUIRED
 	};
 
-	const std::map<int, std::string> status_map =
+	const std::map<int, std::string> status_string_map =
 	{
 		{status::OK, "Ok"},
 		{status::BAD_REQUEST, "Bad request"},
@@ -95,9 +95,9 @@ namespace http
 	{
 		try
 		{
-			return status_map.at(key);
+			return status_string_map.at(key);
 		}
-		catch (const std::out_of_range & e)
+		catch (const std::exception & e)
 		{
 			throw e;
 		}
