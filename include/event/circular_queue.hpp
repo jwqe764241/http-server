@@ -17,14 +17,14 @@ private:
 	*/
 	std::vector<t_type> container;
 
-	int max_size;
+	int size;
 	int front;
 	int rear;
 
 public:
 
-	circular_queue(int max_size)
-		: front(0), rear(0), max_size(max_size), container(max_size + 1)
+	circular_queue(int size)
+		: front(0), rear(0), size(size), container(size + 1)
 	{
 	}
 
@@ -70,9 +70,9 @@ public:
 		return ((rear + 1) % container.size()) == front;
 	}
 
-	size_t max_size()
+	int get_size()
 	{
-		return max_size;
+		return size;
 	}
 
 	std::vector<t_type> get_container()
