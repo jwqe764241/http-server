@@ -16,7 +16,7 @@ RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
-INCLUDES = -I ./include -I ./lib/asio/include
+INCLUDES = -I ./include -I ./lib/asio/include -I ./lib/get_option
 # General linker settings
 LINK_FLAGS = -pthread
 # Additional release-specific linker settings
