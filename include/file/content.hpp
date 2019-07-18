@@ -29,7 +29,6 @@ static std::map<std::string, std::string> type_map =
 class content
 {
 private:
-	std::string location;
 	path elements;
 
 public:
@@ -39,4 +38,6 @@ public:
 	std::string get_extension();
 	std::ifstream get_stream();
 	std::string get_type();
+
+	void append(const content& content);
 };

@@ -1,7 +1,7 @@
 #include "file/content.hpp"
 
 content::content(std::string location)
-try : location(location)
+try
 {
 	elements = path(location);
 }
@@ -12,7 +12,7 @@ catch (...)
 
 std::string content::get_path()
 {
-	return location;
+	return elements.get_real_path_string();
 }
 
 std::string content::get_extension()
@@ -32,10 +32,15 @@ std::string content::get_extension()
 
 std::ifstream content::get_stream()
 {
-	return std::ifstream(location, std::ifstream::binary);
+	return std::ifstream(elements.get_real_path_string(), std::ifstream::binary);
 }
 
 std::string content::get_type()
 {
 	return type_map[get_extension()];
+}
+
+void content::append(const content& content)
+{
+	this->elements.append(content.elements);
 }
