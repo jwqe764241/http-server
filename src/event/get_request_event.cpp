@@ -75,6 +75,10 @@ void get_request_event::do_post(web::http::request request)
 		content request_content(server->get_root_path());
 			request_content.append(content(path.get_real_path_string()));
 
+		auto remote = socket.remote_endpoint();
+
+		std::cout << "requested : " << remote.address().to_string() << ":" << remote.port() << " " << request_content.get_path();
+
 		std::ifstream read_stream = request_content.get_stream();
 
 		//if file doesn't exist
