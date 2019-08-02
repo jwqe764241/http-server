@@ -77,7 +77,7 @@ void get_request_event::do_post(web::http::request request)
 
 		auto remote = socket.remote_endpoint();
 
-		std::cout << "requested : " << remote.address().to_string() << ":" << remote.port() << " " << request_content.get_path();
+		std::cout << "requested : " << remote.address().to_string() << ":" << remote.port() << " " << request_content.get_path() << std::endl;
 
 		std::ifstream read_stream = request_content.get_stream();
 

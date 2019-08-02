@@ -21,16 +21,25 @@ int main(int argc, char** argv)
 
 		try
 		{
-			option = file_option(std::ifstream(parser.get_arguments("--option")[0]));
+			option = file_option(std::ifstream(parser.get_arguments("--option").at(0)));
 		}
 		catch (const std::ifstream::failure& e)
 		{
-			std::cout << "No option file or cannot access to option file," << "\n";
-			std::cout << "Will use default options instead." << "\n\n";
+			std::cout << "err : No option file or cannot access to option file"  << "\n";
+
+			return 0;
+		}
+		catch (const std::out_of_range& e)
+		{
+			std::cout << "err : Option file path not served" << "\n";
+
+			return 0;
 		}
 		catch (const std::exception& e)
 		{
 			std::cout << e.what() << std::endl;
+
+			return 0;
 		}
 
 		try
@@ -51,16 +60,108 @@ int main(int argc, char** argv)
 	}
 	else
 	{
+		std::string worker;
 		try
 		{
-			web::server server(
-				parser.has_option("--worker") ? std::stoi(parser.get_arguments("--worker")[0]) : 1,
-				parser.has_option("--task") ? std::stoi(parser.get_arguments("--task")[0]) : 200);
+			if (parser.has_option("--worker"))
+			{
+				worker = parser.get_arguments("--worker").at(0);
+			}
+			else
+			{
+				worker = "1";
+			}
+		}
+		catch (const std::exception& e)
+		{
+			worker = "1";
+		}
 
-			server.start(
-				parser.has_option("--ip") ? parser.get_arguments("--ip")[0] : "127.0.0.1",
-				parser.has_option("--port") ? parser.get_arguments("--port")[0] : "8080",
-				parser.has_option("--root") ? parser.get_arguments("--root")[0] : "./");
+		std::string task;
+		try
+		{
+			if (parser.has_option("--task"))
+			{
+
+				task = parser.get_arguments("--task").at(0);
+			}
+			else
+			{
+				task = "200";
+			}
+		}
+		catch (const std::exception& e)
+		{
+			task = "200";
+		}
+
+		std::string ip;
+		try
+		{
+			if (parser.has_option("--ip"))
+			{
+				ip = parser.get_arguments("--ip").at(0);
+			}
+			else
+			{
+				std::cout << "err : ip not served" << "\n";
+
+				return 0;
+			}
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << "err : ip not served" << "\n";
+
+			return 0;
+		}
+
+		std::string port;
+		try
+		{
+			if (parser.has_option("--port"))
+			{
+				port = parser.get_arguments("--port").at(0);
+			}
+			else
+			{
+				std::cout << "err : port not served" << "\n";
+
+				return 0;
+			}
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << "err : port not served" << "\n";
+
+			return 0;
+		}
+
+		std::string root;
+		try
+		{
+			if (parser.has_option("--root"))
+			{
+				root = parser.get_arguments("--root").at(0);
+			}
+			else
+			{
+				std::cout << "err : root path not served" << "\n";
+
+				return 0;
+			}
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << "err : root path not served" << "\n";
+
+			return 0;
+		}
+
+		try
+		{
+			web::server server(std::stoi(worker), std::stoi(task));
+				server.start(ip, port, root);
 		}
 		catch (const std::exception& e)
 		{
