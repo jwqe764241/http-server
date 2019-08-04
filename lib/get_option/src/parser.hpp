@@ -109,5 +109,19 @@ namespace cmd
 				return {};
 			}
 		}
+
+		int get_argument_size(std::string name)
+		{
+			auto it = find(name);
+
+			if (it != parsed_option.end())
+			{
+				return it->second.size();
+			}
+			else
+			{
+				return {};
+			}
+		}
 	};
 }
