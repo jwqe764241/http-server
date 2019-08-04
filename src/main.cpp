@@ -31,10 +31,24 @@ int main(int argc, char** argv)
 		option("--port", "-p", 1),
 		option("--root", "-r", 1),
 		option("--worker", "-w", 1),
-		option("--task", "-t", 1)
+		option("--task", "-t", 1),
+		option("--help", "-h")
 	});
 
-	if (parser.has_option("--option"))
+	if (parser.has_option("--help"))
+	{
+		std::cout << "Usage\n";
+		std::cout << "\t<server> -o <option path> : start server with option file\n";
+		std::cout << "\t<server> -i <ip> -p <port> -r <path> -w <number> -t <size> : start server\n\n\n";
+		std::cout << "Options\n";
+		std::cout << "\t -o (--option)\t option file path\n";
+		std::cout << "\t -i (--ip)\t server ip (required)\n";
+		std::cout << "\t -p (--port)\t server port (required)\n";
+		std::cout << "\t -r (--root)\t server resource root path(required)\n";
+		std::cout << "\t -w (--worker)\t server worker number (default - 1)\n";
+		std::cout << "\t -t (--task)\t server task queue size (default - 200)\n" << std::endl;
+	}
+	else if (parser.has_option("--option"))
 	{
 		file_option option;
 
@@ -77,7 +91,7 @@ int main(int argc, char** argv)
 			std::cout << e.what() << std::endl;
 		}
 	}
-	else
+	else if(parser.has_option("--ip") || parser.has_option("--port") || parser.has_option("--root"))
 	{
 		std::string worker = get_value_if_exist(parser, "--worker", "1");
 
@@ -117,7 +131,10 @@ int main(int argc, char** argv)
 			std::cout << e.what() << std::endl;
 		}
 	}
+	else
+	{
+		std::cout << "Unknown commands. --help or -h to show all commands." << std::endl;
+	}
 
-	system("pause");
 	return 0;
 }
