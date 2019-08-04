@@ -2,6 +2,25 @@
 #include "server/server.hpp"
 #include "utils/file_option.hpp"
 
+std::string get_value_if_exist(cmd::parser& parser, std::string opt, std::string fail_value)
+{
+	try
+	{
+		if (parser.has_option(opt))
+		{
+			return parser.get_arguments(opt).at(0);
+		}
+		else
+		{
+			return fail_value;
+		}
+	}
+	catch (const std::exception & e)
+	{
+		return fail_value;
+	}
+}
+
 int main(int argc, char** argv)
 {
 	using namespace cmd;
@@ -60,98 +79,28 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		std::string worker;
-		try
-		{
-			if (parser.has_option("--worker"))
-			{
-				worker = parser.get_arguments("--worker").at(0);
-			}
-			else
-			{
-				worker = "1";
-			}
-		}
-		catch (const std::exception& e)
-		{
-			worker = "1";
-		}
+		std::string worker = get_value_if_exist(parser, "--worker", "1");
 
-		std::string task;
-		try
-		{
-			if (parser.has_option("--task"))
-			{
+		std::string task = get_value_if_exist(parser, "--task", "200");
 
-				task = parser.get_arguments("--task").at(0);
-			}
-			else
-			{
-				task = "200";
-			}
-		}
-		catch (const std::exception& e)
-		{
-			task = "200";
-		}
-
-		std::string ip;
-		try
-		{
-			if (parser.has_option("--ip"))
-			{
-				ip = parser.get_arguments("--ip").at(0);
-			}
-			else
-			{
-				std::cout << "err : ip not served" << "\n";
-
-				return 0;
-			}
-		}
-		catch (const std::exception& e)
+		std::string ip = get_value_if_exist(parser, "--ip", "");
+		if(ip == "")
 		{
 			std::cout << "err : ip not served" << "\n";
 
 			return 0;
 		}
 
-		std::string port;
-		try
-		{
-			if (parser.has_option("--port"))
-			{
-				port = parser.get_arguments("--port").at(0);
-			}
-			else
-			{
-				std::cout << "err : port not served" << "\n";
-
-				return 0;
-			}
-		}
-		catch (const std::exception& e)
+		std::string port = get_value_if_exist(parser, "--port", "");
+		if(port == "")
 		{
 			std::cout << "err : port not served" << "\n";
 
 			return 0;
 		}
 
-		std::string root;
-		try
-		{
-			if (parser.has_option("--root"))
-			{
-				root = parser.get_arguments("--root").at(0);
-			}
-			else
-			{
-				std::cout << "err : root path not served" << "\n";
-
-				return 0;
-			}
-		}
-		catch (const std::exception& e)
+		std::string root = get_value_if_exist(parser, "--root", "");
+		if(root == "")
 		{
 			std::cout << "err : root path not served" << "\n";
 
