@@ -1,7 +1,3 @@
-#vscxproj user and filter setting
-*.vcxproj.user
-*.vcxproj.filters
-
 # Prerequisites
 *.d
 

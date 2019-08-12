@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\http">
+      <UniqueIdentifier>{d629d45e-993d-47c1-b85e-50a16bb7040f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\utils">
+      <UniqueIdentifier>{baff48ee-7cc4-4478-9d5c-d194ee940a1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\exception">
+      <UniqueIdentifier>{3095ffce-ea3b-4c3b-882a-1ea8250b9dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\server">
+      <UniqueIdentifier>{b85817de-2714-4d5c-b8a4-709e384a1bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\event">
+      <UniqueIdentifier>{c6e8a5db-c089-45c7-8e5b-b63dbf567e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\event\types">
+      <UniqueIdentifier>{5b252f71-ba69-443b-84f6-57b7022789af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\file">
+      <UniqueIdentifier>{5380fbef-4535-4d0b-bb4f-cd90c1244c27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\utils\utils.hpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\http\http_request.hpp">
+      <Filter>소스 파일\http</Filter>
+    </ClInclude>
+    <ClInclude Include="include\http\http_response.hpp">
+      <Filter>소스 파일\http</Filter>
+    </ClInclude>
+    <ClInclude Include="include\http\http.hpp">
+      <Filter>소스 파일\http</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exceptions\parse_exception.hpp">
+      <Filter>소스 파일\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\file_option.hpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\basic_option.hpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\server\server.hpp">
+      <Filter>소스 파일\server</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\logger.hpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\thread_pool.hpp">
+      <Filter>소스 파일\event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\circular_queue.hpp">
+      <Filter>소스 파일\event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\event.hpp">
+      <Filter>소스 파일\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\part.hpp">
+      <Filter>소스 파일\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\path.hpp">
+      <Filter>소스 파일\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event\get_request_event.hpp">
+      <Filter>소스 파일\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exceptions\file_not_found_exception.hpp">
+      <Filter>소스 파일\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\content.hpp">
+      <Filter>소스 파일\file</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\http\http_request.cpp">
+      <Filter>소스 파일\http</Filter>
+    </ClCompile>
+    <ClCompile Include="src\http\http_response.cpp">
+      <Filter>소스 파일\http</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\file_option.cpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\server.cpp">
+      <Filter>소스 파일\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\file\content.cpp">
+      <Filter>소스 파일\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\file\part.cpp">
+      <Filter>소스 파일\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\file\path.cpp">
+      <Filter>소스 파일\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\event\get_request_event.cpp">
+      <Filter>소스 파일\event\types</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
