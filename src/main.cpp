@@ -94,10 +94,11 @@ int main(int argc, char** argv)
 	else if(parser.has_option("--ip") || parser.has_option("--port") || parser.has_option("--root"))
 	{
 		std::string worker = get_value_if_exist(parser, "--worker", "1");
-
 		std::string task = get_value_if_exist(parser, "--task", "200");
-
 		std::string ip = get_value_if_exist(parser, "--ip", "");
+		std::string port = get_value_if_exist(parser, "--port", "");
+		std::string root = get_value_if_exist(parser, "--root", "");
+
 		if(ip == "")
 		{
 			std::cout << "err : ip not served" << "\n";
@@ -105,19 +106,15 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
-		std::string port = get_value_if_exist(parser, "--port", "");
 		if(port == "")
 		{
 			std::cout << "err : port not served" << "\n";
-
 			return 0;
 		}
 
-		std::string root = get_value_if_exist(parser, "--root", "");
 		if(root == "")
 		{
 			std::cout << "err : root path not served" << "\n";
-
 			return 0;
 		}
 
