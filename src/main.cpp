@@ -8,7 +8,7 @@ std::string get_value_if_exist(cmd::parser& parser, std::string opt, std::string
 	{
 		if (parser.has_option(opt))
 		{
-			return parser.get_arguments(opt).at(0);
+			return parser.get_arguments(opt).front();
 		}
 		else
 		{
