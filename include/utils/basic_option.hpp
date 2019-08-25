@@ -13,7 +13,7 @@ protected:
 public:
 	basic_option(){}
 
-	basic_option(basic_option& option)
+	basic_option(basic_option<t_key, t_val>& option)
 	{
 		container = option.container;
 	}
