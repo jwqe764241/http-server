@@ -83,7 +83,7 @@
     <ClInclude Include="include\file\content.hpp">
       <Filter>소스 파일\file</Filter>
     </ClInclude>
-    <ClInclude Include="include\event\control.hpp">
+    <ClInclude Include="include\event\event_control.hpp">
       <Filter>소스 파일\event</Filter>
     </ClInclude>
   </ItemGroup>
@@ -115,7 +115,7 @@
     <ClCompile Include="src\event\get_request_event.cpp">
       <Filter>소스 파일\event\types</Filter>
     </ClCompile>
-    <ClCompile Include="src\event\control.cpp">
+    <ClCompile Include="src\event\event_control.cpp">
       <Filter>소스 파일\event</Filter>
     </ClCompile>
   </ItemGroup>
