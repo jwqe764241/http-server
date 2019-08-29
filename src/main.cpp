@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 
 		try
 		{
-			web::server server(
+			server::server server(
 				option.has("workers") ? std::stoi(option["workers"]) : 1,
 				option.has("max_task") ? std::stoi(option["max_task"]) : 200);
 
@@ -120,7 +120,7 @@ int main(int argc, char** argv)
 
 		try
 		{
-			web::server server(std::stoi(worker), std::stoi(task));
+			server::server server(std::stoi(worker), std::stoi(task));
 				server.start(ip, port, root);
 		}
 		catch (const std::exception& e)

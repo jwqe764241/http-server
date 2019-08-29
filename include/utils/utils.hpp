@@ -2,7 +2,7 @@
 
 #include <string>
 
-#define _IMPLEMENT_SCOPE namespace web{
+#define _IMPLEMENT_SCOPE namespace server{
 #define _IMPLEMENT_END }
 
 namespace character

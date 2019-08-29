@@ -1,6 +1,6 @@
 #include "event/get_request_event.hpp"
 
-get_request_event::get_request_event(asio::io_service& service, asio::ip::tcp::socket socket, web::server* server)
+get_request_event::get_request_event(asio::io_service& service, asio::ip::tcp::socket socket, server::server* server)
 	: socket(std::move(socket)), server(server)
 {
 }
@@ -11,7 +11,7 @@ get_request_event::~get_request_event()
 
 void get_request_event::notify()
 {
-	web::http::request request;
+	server::http::request request;
 
 	//parse request
 	try
@@ -21,13 +21,13 @@ void get_request_event::notify()
 
 		request.parse(buff);
 	}
-	catch (const web::parse_exception& e)
+	catch (const server::parse_exception& e)
 	{
-		std::string status_string = web::http::get_status_string(web::http::BAD_REQUEST);
+		std::string status_string = server::http::get_status_string(server::http::BAD_REQUEST);
 
-		web::http::response response(
+		server::http::response response(
 			"Unknown",
-			std::to_string(web::http::BAD_REQUEST),
+			std::to_string(server::http::BAD_REQUEST),
 			status_string);
 
 		response.body = status_string;
@@ -46,11 +46,11 @@ void get_request_event::notify()
 	}
 	else
 	{
-		std::string status_string = web::http::get_status_string(web::http::METHOD_NOT_ALLOWED);
+		std::string status_string = server::http::get_status_string(server::http::METHOD_NOT_ALLOWED);
 
-		web::http::response response(
+		server::http::response response(
 			request.version,
-			std::to_string(web::http::METHOD_NOT_ALLOWED),
+			std::to_string(server::http::METHOD_NOT_ALLOWED),
 			status_string);
 
 		response.body = status_string;
@@ -60,12 +60,12 @@ void get_request_event::notify()
 	}
 }
 
-void get_request_event::do_get(web::http::request request)
+void get_request_event::do_get(server::http::request request)
 {
 	do_post(request);
 }
 
-void get_request_event::do_post(web::http::request request)
+void get_request_event::do_post(server::http::request request)
 {
 	//send response
 	try
@@ -84,14 +84,14 @@ void get_request_event::do_post(web::http::request request)
 		//if file doesn't exist
 		if (!read_stream)
 		{
-			throw web::file_not_found_exception("File doesn't exist", request.url);
+			throw server::file_not_found_exception("File doesn't exist", request.url);
 		}
 
-		std::string status_string = web::http::get_status_string(web::http::OK);
+		std::string status_string = server::http::get_status_string(server::http::OK);
 
-		web::http::response response(
+		server::http::response response(
 			request.version,
-			std::to_string(web::http::OK),
+			std::to_string(server::http::OK),
 			status_string);
 
 		/*
@@ -106,13 +106,13 @@ void get_request_event::do_post(web::http::request request)
 		socket.write_some(asio::buffer(response.string()));
 		socket.close();
 	}
-	catch (const web::file_not_found_exception& e)
+	catch (const server::file_not_found_exception& e)
 	{
-		std::string status_string = web::http::get_status_string(web::http::NOT_FOUND);
+		std::string status_string = server::http::get_status_string(server::http::NOT_FOUND);
 
-		web::http::response response(
+		server::http::response response(
 			request.version,
-			std::to_string(web::http::NOT_FOUND),
+			std::to_string(server::http::NOT_FOUND),
 			status_string);
 
 		response.body = status_string;
@@ -122,11 +122,11 @@ void get_request_event::do_post(web::http::request request)
 	}
 	catch (const std::exception& e)
 	{
-		std::string status_string = web::http::get_status_string(web::http::INTERNAL_SERVER_ERROR);
+		std::string status_string = server::http::get_status_string(server::http::INTERNAL_SERVER_ERROR);
 
-		web::http::response response(
+		server::http::response response(
 			request.version,
-			std::to_string(web::http::INTERNAL_SERVER_ERROR),
+			std::to_string(server::http::INTERNAL_SERVER_ERROR),
 			status_string);
 
 		response.body = status_string;

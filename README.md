@@ -1,6 +1,4 @@
-## WebServer
-
-Send requested file simply.
+## http_server
 
 ##### Directory structure
 
@@ -32,3 +30,4 @@ Send requested file simply.
 - lib : for external libraries
 - src : for source files
 - test : for test source files
+
