@@ -43,7 +43,7 @@ public:
 	{
 		for(int i = 0; i < max_worker; ++i)
 		{
-			workers.push_back(std::thread(&thread_pool::processTask, this, i));
+			workers.push_back(std::thread(&thread_pool::processTask, this));
 		}
 	}
 
@@ -52,7 +52,7 @@ public:
 		stop();
 	}
 
-	static void processTask(thread_pool* pool, int number)
+	static void processTask(thread_pool* pool)
 	{
 		logger logger(std::cout);
 
