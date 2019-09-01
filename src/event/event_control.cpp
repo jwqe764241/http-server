@@ -9,7 +9,7 @@ event_control::event_control(std::initializer_list<event_control_pair> controls)
 	list.insert(controls.begin(), controls.end());
 }
 
-void event_control::add_control(std::string url, handler_function handler)
+void event_control::add_control(std::string url, generator_function handler)
 {
 	add_control({ url, handler });
 }
