@@ -25,6 +25,17 @@ int main(int argc, char** argv)
 {
 	using namespace cmd;
 
+	/*
+		options
+
+		--option (-o) : option file path, if this option served, another option will be ignored
+		--ip     (-i) : server ip
+		--port   (-p) : server port
+		--root   (-r) : server resource root path
+		--worker (-w) : server worker number
+		--task   (-t) : server task queue size
+		--help   (-h) : show help
+	*/
 	parser parser(argc, argv, {
 		option("--option", "-o", 1),
 		option("--ip", "-i", 1),
