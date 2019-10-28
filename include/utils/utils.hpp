@@ -13,9 +13,7 @@ namespace character
 	const std::string WHITESPACE (" ");
 	const std::string PATH_DIVIDER("/");
 	const std::string PARENT_DIRECTORY("..");
-
 }
-
 
 namespace utils
 {
@@ -31,4 +29,6 @@ namespace utils
 			}
 		}
 	}
+
+	const std::string HTTP_VERSION = "HTTP/1.1";
 }

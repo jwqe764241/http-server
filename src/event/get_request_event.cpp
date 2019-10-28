@@ -26,7 +26,7 @@ void get_request_event::notify()
 		std::string status_string = server::http::get_status_string(server::http::BAD_REQUEST);
 
 		server::http::response response(
-			"Unknown",
+			utils::HTTP_VERSION,
 			std::to_string(server::http::BAD_REQUEST),
 			status_string);
 
@@ -49,7 +49,7 @@ void get_request_event::notify()
 		std::string status_string = server::http::get_status_string(server::http::METHOD_NOT_ALLOWED);
 
 		server::http::response response(
-			request.version,
+			utils::HTTP_VERSION,
 			std::to_string(server::http::METHOD_NOT_ALLOWED),
 			status_string);
 
@@ -90,7 +90,7 @@ void get_request_event::do_post(server::http::request request)
 		std::string status_string = server::http::get_status_string(server::http::OK);
 
 		server::http::response response(
-			request.version,
+			utils::HTTP_VERSION,
 			std::to_string(server::http::OK),
 			status_string);
 
@@ -111,7 +111,7 @@ void get_request_event::do_post(server::http::request request)
 		std::string status_string = server::http::get_status_string(server::http::NOT_FOUND);
 
 		server::http::response response(
-			request.version,
+			utils::HTTP_VERSION,
 			std::to_string(server::http::NOT_FOUND),
 			status_string);
 
@@ -125,7 +125,7 @@ void get_request_event::do_post(server::http::request request)
 		std::string status_string = server::http::get_status_string(server::http::INTERNAL_SERVER_ERROR);
 
 		server::http::response response(
-			request.version,
+			utils::HTTP_VERSION,
 			std::to_string(server::http::INTERNAL_SERVER_ERROR),
 			status_string);
 
