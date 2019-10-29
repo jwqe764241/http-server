@@ -15,8 +15,8 @@ namespace http
 	{
 	public:
 		//First line data - HTTP verison, Response code, Describe
-		std::string http_version;
-		std::string response_code;
+		std::string version;
+		std::string code;
 		std::string describe;
 
 		//Additional header data
@@ -32,13 +32,14 @@ namespace http
 			std::string describe);
 		virtual ~response();
 
-		std::string string();
 		//Add additional header data
 		void set_header(const std::string& key, const std::string& value);
 		void set_header(const std::map<std::string, std::string>& header);
 
 		std::string get_header(const std::string& key);
 		const std::map<std::string, std::string>& get_header();
+
+		std::string to_string();
 	};
 }
 
