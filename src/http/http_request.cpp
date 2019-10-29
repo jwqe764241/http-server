@@ -143,6 +143,31 @@ namespace http
 	{
 		return header;
 	}
+
+	std::string request::to_string()
+	{
+		std::ostringstream data_stream;
+
+		//First line data can't be a null
+		if (method.empty() && url.empty() && version.empty())
+			throw parse_exception("Start line data can't be a null, check the start line data ");
+
+		data_stream << method << character::WHITESPACE
+			<< url << character::WHITESPACE << version << character::WHITESPACE;
+
+		for (const auto& pair : header)
+		{
+			data_stream << pair.first << ":" << pair.second << "\n";
+		}
+
+		if (!body.empty())
+		{
+			//Insert empty line first because body data seperated with line
+			data_stream << "\n" << body << "\n";
+		}
+
+		return data_stream.str();
+	}
 }
 
 _IMPLEMENT_END

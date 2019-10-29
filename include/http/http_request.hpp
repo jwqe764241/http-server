@@ -41,6 +41,8 @@ namespace http
 
 		std::string get_header(const std::string& key);
 		const std::map<std::string, std::string>& get_header();
+
+		std::string to_string();
 	};
 }
 
