@@ -32,7 +32,7 @@ void get_request_event::notify()
 
 		response.body = status_string;
 
-		socket.write_some(asio::buffer(response.string()));
+		socket.write_some(asio::buffer(response.to_string()));
 		socket.close();
 	}
 
@@ -55,7 +55,7 @@ void get_request_event::notify()
 
 		response.body = status_string;
 
-		socket.write_some(asio::buffer(response.string()));
+		socket.write_some(asio::buffer(response.to_string()));
 		socket.close();
 	}
 }
@@ -103,7 +103,7 @@ void get_request_event::do_post(server::http::request request)
 
 		response.set_header("Content-Type", request_content.get_type());
 
-		socket.write_some(asio::buffer(response.string()));
+		socket.write_some(asio::buffer(response.to_string()));
 		socket.close();
 	}
 	catch (const server::file_not_found_exception& e)
@@ -117,7 +117,7 @@ void get_request_event::do_post(server::http::request request)
 
 		response.body = status_string;
 
-		socket.write_some(asio::buffer(response.string()));
+		socket.write_some(asio::buffer(response.to_string()));
 		socket.close();
 	}
 	catch (const std::exception& e)
@@ -131,7 +131,7 @@ void get_request_event::do_post(server::http::request request)
 
 		response.body = status_string;
 
-		socket.write_some(asio::buffer(response.string()));
+		socket.write_some(asio::buffer(response.to_string()));
 		socket.close();
 
 		throw e;
