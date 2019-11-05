@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "option.hpp"
+#include "option_not_found_exception.hpp"
 
 auto find_option(std::string name, std::vector<cmd::option>& options)
 {
@@ -68,7 +69,7 @@ namespace cmd
 			}
 		}
 
-		auto find(std::string name)
+		auto find(std::string name) const
 		{
 			auto it = std::find_if(parsed_option.begin(), parsed_option.end(), [name](const std::pair<option, std::vector<std::string>>& e) {
 				const option o = e.first;
@@ -89,14 +90,14 @@ namespace cmd
 			parse(argc, argv, options);
 		}
 
-		bool has_option(std::string name)
+		bool has_option(std::string name) const
 		{
 			auto it = find(name);
 
 			return it != parsed_option.end() ? true : false;
 		}
 
-		std::vector<std::string> get_arguments(std::string name)
+		std::vector<std::string> get_arguments(std::string name) const
 		{
 			auto it = find(name);
 
@@ -106,11 +107,11 @@ namespace cmd
 			}
 			else
 			{
-				return {};
+				throw option_not_found_exception("can't find " + name, name);
 			}
 		}
 
-		int get_argument_size(std::string name)
+		int get_argument_size(std::string name) const
 		{
 			auto it = find(name);
 
