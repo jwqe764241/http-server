@@ -21,5 +21,10 @@ namespace cmd
 		{
 			return msg.c_str();
 		}
+
+		const std::string& option()
+		{
+			return option;
+		}
 	};
 }
