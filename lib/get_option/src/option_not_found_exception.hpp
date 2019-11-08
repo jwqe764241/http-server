@@ -22,7 +22,7 @@ namespace cmd
 			return msg.c_str();
 		}
 
-		const std::string& option()
+		const std::string& option() const noexcept
 		{
 			return option;
 		}
