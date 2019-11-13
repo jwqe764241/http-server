@@ -2,24 +2,7 @@
 #include "server/server.hpp"
 #include "utils/file_option.hpp"
 
-std::string get_value_if_exist(cmd::parser& parser, std::string opt, std::string fail_value)
-{
-	try
-	{
-		if (parser.has_option(opt))
-		{
-			return parser.get_arguments(opt).front();
-		}
-		else
-		{
-			return fail_value;
-		}
-	}
-	catch (const std::exception & e)
-	{
-		return fail_value;
-	}
-}
+std::string get_value_if_exist(cmd::parser& parser, std::string opt, std::string fail_value);
 
 int main(int argc, char** argv)
 {
@@ -104,35 +87,33 @@ int main(int argc, char** argv)
 	}
 	else if(parser.has_option("--ip") || parser.has_option("--port") || parser.has_option("--root"))
 	{
-		std::string worker = get_value_if_exist(parser, "--worker", "1");
-		std::string task = get_value_if_exist(parser, "--task", "200");
-		std::string ip = get_value_if_exist(parser, "--ip", "");
-		std::string port = get_value_if_exist(parser, "--port", "");
-		std::string root = get_value_if_exist(parser, "--root", "");
-
-		if(ip == "")
-		{
-			std::cout << "err : ip not served" << "\n";
-
-			return 0;
-		}
-
-		if(port == "")
-		{
-			std::cout << "err : port not served" << "\n";
-			return 0;
-		}
-
-		if(root == "")
-		{
-			std::cout << "err : root path not served" << "\n";
-			return 0;
-		}
-
 		try
 		{
+			std::string worker = get_value_if_exist(parser, "--worker", "1");
+			std::string task = get_value_if_exist(parser, "--task", "200");
+			std::string ip = parser.get_arguments("--ip").front();
+			std::string port = parser.get_arguments("--port").front();
+			std::string root = parser.get_arguments("--root").front();
+
 			server::server server(std::stoi(worker), std::stoi(task));
-				server.start(ip, port, root);
+			server.start(ip, port, root);
+		}
+		catch (const cmd::option_not_found_exception& e)
+		{
+			const std::string& option_name = e.get_option();
+
+			if (option_name == "--ip")
+			{
+				std::cout << "err : ip not served" << "\n";
+			}
+			else if (option_name == "--port")
+			{
+				std::cout << "err : port not served" << "\n";
+			}
+			else if (option_name == "--root")
+			{
+				std::cout << "err : root path not served" << "\n";
+			}
 		}
 		catch (const std::exception& e)
 		{
@@ -145,4 +126,23 @@ int main(int argc, char** argv)
 	}
 
 	return 0;
+}
+
+std::string get_value_if_exist(cmd::parser& parser, std::string opt, std::string fail_value)
+{
+	try
+	{
+		if (parser.has_option(opt))
+		{
+			return parser.get_arguments(opt).front();
+		}
+		else
+		{
+			return fail_value;
+		}
+	}
+	catch (const std::exception& e)
+	{
+		return fail_value;
+	}
 }
