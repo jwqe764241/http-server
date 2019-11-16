@@ -19,7 +19,7 @@ Purpose:prefetch)aaa";
 	response.add("Host", "127.0.0.1");
 	response.add("Purpose", "prefetch");
 	
-	REQUIRE(expected_string == response.string());
+	REQUIRE(expected_string == response.to_string());
 }
 
 TEST_CASE("http response build test 2", "[build]")
@@ -34,5 +34,5 @@ Purpose:prefetch)aaa";
 	response.add("Host", "127.0.0.1");
 	response.add("Purpose", "prefetch");
 	
-	REQUIRE(expected_string == response.string());
+	REQUIRE(expected_string == response.to_string());
 }
