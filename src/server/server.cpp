@@ -6,8 +6,7 @@ server::server(int worker_number, int max_task)
 	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
-	event_pool(worker_number, max_task),
-	log(std::cout)
+	event_pool(worker_number, max_task)
 {
 	if (worker_number < 1)
 	{
@@ -58,12 +57,12 @@ void server::on_accept(const asio::error_code error_code)
 		}
 		catch(std::exception& e)
 		{
-			log.error(e.what());
+			log->log(LEVEL::FATAL, e.what());
 		}
 	}
 	else
 	{
-		log.error(error_code.value() +  " : " + error_code.message());
+		log->log(LEVEL::FATAL, error_code.value() + " : " + error_code.message());
 	}
 
 	listen_socket.close();
@@ -90,7 +89,7 @@ void server::start(std::string ip, std::string port, std::string root_path)
 	}
 	catch (const std::exception & e)
 	{
-		log.error(e.what());
+		log->log(LEVEL::FATAL, e.what());
 		return;
 	}
 
@@ -98,14 +97,14 @@ void server::start(std::string ip, std::string port, std::string root_path)
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
-	log << "Server configured" << "\n";
-	log << "  ip : " << ip << "\n";
-	log << "  port : " << port << "\n";
-	log << "  root path : " << root_path << "\n";
-	log << "  workers : " << worker_number << "\n";
-	log << "  max task : " << max_task << "\n\n";
+	log->log(LEVEL::INFO, "Server configured\n");
+	log->log(LEVEL::INFO, "  ip : " + ip + "\n");
+	log->log(LEVEL::INFO, "  port : " + port + "\n");
+	log->log(LEVEL::INFO, "  root path : " + root_path + "\n");
+	log->log(LEVEL::INFO, "  workers : " + std::to_string(worker_number) + "\n");
+	log->log(LEVEL::INFO, "  max task : " + std::to_string(max_task) + "\n");
 
-	log.info("Now, server is running....");
+	log->log(LEVEL::INFO, "Now, server is running....");
 
 	run();
 }

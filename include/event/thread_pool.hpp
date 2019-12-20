@@ -54,7 +54,7 @@ public:
 
 	static void processTask(thread_pool* pool)
 	{
-		logger logger(std::cout);
+		console_logger logger(LEVEL::ALL);
 
 		while(pool->is_running())
 		{
@@ -70,7 +70,7 @@ public:
 			}
 			catch (const std::exception& e)
 			{
-				logger.error(e.what());
+				logger.log(LEVEL::FATAL, e.what());
 			}
 			
 		}

@@ -4,6 +4,7 @@
 #include <memory>
 #include <iostream>
 #include <functional>
+#include <cstring>
 
 #include "asio.hpp"
 #include "utils/utils.hpp"
@@ -17,7 +18,7 @@ _IMPLEMENT_SCOPE
 
 class server
 {
-	logger log;
+	std::unique_ptr<logger> log = std::make_unique<console_logger>(LEVEL::ALL);
 
 private:
 	asio::io_service io_service;

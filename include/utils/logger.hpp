@@ -2,43 +2,79 @@
 
 #include <iostream>
 
-#include "utils/utils.hpp"
+enum LEVEL
+{
+	INFO = 1,
+	DEBUG = 2,
+	WARN = 4,
+	FATAL = 8,
+	ALL = 15
+};
 
 class logger
 {
-private:
-	std::ostream out_stream;
+protected:
+	int level;
+	std::shared_ptr<logger> next;
+	std::ostream& stream;
+
+protected:
+	virtual void write(std::string message) = 0;
 
 public:
-	logger(std::ostream& out_stream)
-		:out_stream(out_stream.rdbuf())
+	logger(int level, std::ostream& stream)
+		: level(level), stream(stream)
 	{
 	}
 
-	template <typename T> friend logger& operator<< (logger& logger, const T& t)
+	logger* set_next(std::shared_ptr<logger> next)
 	{
-		logger.out_stream << t;
-		return logger;
+		logger* last_logger = this;
+
+		while (last_logger->next != nullptr)
+		{
+			last_logger = last_logger->next.get();
+		}
+
+		last_logger->next = next;
+
+		return this;
 	}
 
-	friend logger& operator<<(logger& logger, std::ostream& (*pf)(std::ostream&))
+	void log(int level, std::string message)
 	{
-		logger.out_stream << pf;
-		return logger;
+		if ((this->level & level) != 0)
+		{
+			if (level == LEVEL::DEBUG)
+			{
+#ifndef NDEBUG
+				write(message);
+#endif
+			}
+			else
+			{
+				write(message);
+			}
+		}
+
+		if (next != nullptr)
+		{
+			this->next->log(level, message);
+		}
+	}
+};
+
+class console_logger : public logger
+{
+private:
+	virtual void write(std::string message)
+	{
+		stream << message;
 	}
 
-	void info(std::string log)
+public:
+	console_logger(int level)
+		: logger(level, std::cout)
 	{
-		out_stream << "info : " << log << "\n";
-	}
-
-	void warning(std::string log)
-	{
-		out_stream << "warn : " << log << "\n";
-	}
-
-	void error(std::string log)
-	{
-		out_stream << "err : " << log << "\n";
 	}
 };
