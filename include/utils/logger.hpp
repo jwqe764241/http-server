@@ -67,12 +67,19 @@ public:
 class console_logger : public logger
 {
 private:
+	std::string tag;
+private:
 	virtual void write(std::string message)
 	{
-		stream << message;
+		stream << tag << " " << message;
 	}
 
 public:
+	console_logger(int level, std::string tag)
+		: logger(level, std::cout), tag(tag)
+	{
+	}
+
 	console_logger(int level)
 		: logger(level, std::cout)
 	{

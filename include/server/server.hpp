@@ -18,7 +18,7 @@ _IMPLEMENT_SCOPE
 
 class server
 {
-	std::unique_ptr<logger> log = std::make_unique<console_logger>(LEVEL::ALL);
+	std::unique_ptr<logger> log;
 
 private:
 	asio::io_service io_service;
