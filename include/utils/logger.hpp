@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 
 enum LEVEL
 {
@@ -68,6 +69,7 @@ class console_logger : public logger
 {
 private:
 	std::string tag;
+
 private:
 	virtual void write(std::string message)
 	{
@@ -82,6 +84,24 @@ public:
 
 	console_logger(int level)
 		: logger(level, std::cout)
+	{
+	}
+};
+
+class file_logger : public logger
+{
+private:
+	std::string tag;
+
+private:
+	virtual void write(std::string message)
+	{
+		stream << tag << " " << message;
+	}
+
+public:
+	file_logger(int level, std::string tag, std::ofstream stream)
+		: logger(level, stream), tag(tag)
 	{
 	}
 };
