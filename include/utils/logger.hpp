@@ -104,4 +104,9 @@ public:
 		: logger(level, stream), tag(tag)
 	{
 	}
+
+	file_logger(int level, std::string tag, std::string save_path)
+		: logger(level, std::ofstream(save_path)), tag(tag)
+	{
+	}
 };
