@@ -3,6 +3,7 @@
 #include <iostream>
 #include <array>
 #include <exception>
+#include <mutex>
 
 /*
 	circular queue
@@ -21,6 +22,8 @@ private:
 	int front;
 	int rear;
 
+	std::mutex mutex;
+
 public:
 
 	circular_queue(int size)
@@ -36,6 +39,8 @@ public:
 	{
 		if(!full())
 		{
+			std::lock_guard<std::mutex> guard(mutex);
+
 			container[rear] = element;
 			rear = (rear + 1) % container.size();
 		}
@@ -49,6 +54,8 @@ public:
 	{
 		if(!empty())
 		{
+			std::lock_guard<std::mutex> guard(mutex);
+
 			int temp_pos = front;
 			front = (front + 1) % container.size();
 
@@ -62,16 +69,22 @@ public:
 
 	bool empty()
 	{
+		std::lock_guard<std::mutex> guard(mutex);
+
 		return front == rear;
 	}
 
 	bool full()
 	{
+		std::lock_guard<std::mutex> guard(mutex);
+
 		return ((rear + 1) % container.size()) == front;
 	}
 
 	int get_size()
 	{
+		std::lock_guard<std::mutex> guard(mutex);
+
 		return size;
 	}
 

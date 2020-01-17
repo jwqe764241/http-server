@@ -22,7 +22,6 @@ private:
 	std::vector<std::thread> workers;
 	circular_queue<t_task> tasks;
 	
-	std::mutex task_mutex;
 	std::mutex pool_mutex;
 
 	bool running;
@@ -78,7 +77,7 @@ public:
 
 	void stop()
 	{
-		std::lock_guard<std::mutex> guard(this->task_mutex);
+		std::lock_guard<std::mutex> guard(this->pool_mutex);
 		running = false;
 
 		join_all();
@@ -92,20 +91,16 @@ public:
 
 	bool is_task_empty()
 	{
-		std::lock_guard<std::mutex> guard(this->task_mutex);
 		return tasks.empty();
 	}
 
 	bool is_task_full()
 	{
-		std::lock_guard<std::mutex> guard(this->task_mutex);
 		return tasks.full();
 	}
 
 	void push_task(t_task task)
 	{
-		std::lock_guard<std::mutex> guard(this->task_mutex);
-		
 		try
 		{
 			tasks.enqueue(task);
@@ -118,7 +113,6 @@ public:
 
 	t_task pop_task()
 	{
-		std::lock_guard<std::mutex> guard(this->task_mutex);
 		try
 		{
 			return tasks.dequeue();
