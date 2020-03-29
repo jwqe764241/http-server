@@ -107,7 +107,7 @@ void server::start(std::string ip, std::string port, std::string root_path)
 	log->log(LEVEL::INFO, "  workers : " + std::to_string(worker_number) + "\n");
 	log->log(LEVEL::INFO, "  max task : " + std::to_string(max_task) + "\n");
 
-	log->log(LEVEL::INFO, "Now, server is running....");
+	log->log(LEVEL::INFO, "Now, server is running....\n");
 
 	run();
 }
