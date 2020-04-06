@@ -67,6 +67,10 @@ public:
 						task->notify();
 				}
 			}
+			catch (const std::runtime_error& e)
+			{
+				//...
+			}
 			catch (const std::exception& e)
 			{
 				logger.log(LEVEL::FATAL, e.what());
