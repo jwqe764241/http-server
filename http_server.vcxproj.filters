@@ -86,6 +86,9 @@
     <ClInclude Include="include\event\event_control.hpp">
       <Filter>소스 파일\event</Filter>
     </ClInclude>
+    <ClInclude Include="include\event\producer.hpp">
+      <Filter>소스 파일\event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

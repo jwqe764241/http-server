@@ -5,6 +5,7 @@
 #include <exception>
 #include <mutex>
 
+
 /*
 	circular queue
 */
@@ -59,7 +60,7 @@ public:
 			int temp_pos = front;
 			front = (front + 1) % container.size();
 
-			return container[temp_pos]; 
+			return std::move(container[temp_pos]); 
 		}
 		else
 		{

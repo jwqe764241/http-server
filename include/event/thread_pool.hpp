@@ -5,7 +5,7 @@
 #include <thread>
 #include <mutex>
 
-#include "circular_queue.hpp"
+#include "producer.hpp"
 #include "event.hpp"
 #include "utils/logger.hpp"
 
@@ -20,29 +20,34 @@ class thread_pool
 {
 private:
 	std::vector<std::thread> workers;
-	circular_queue<t_task> tasks;
-	
+	producer<t_task> task_producer;
+	console_logger logger;
 	std::mutex pool_mutex;
 
 	bool running;
 
-private:
-	void join_all()
-	{
-		for(std::thread& worker : workers)
-		{
-			if(worker.joinable())
-				worker.join();
-		}
-	}
-
 public:
 	thread_pool(int max_worker,int max_task)
-		: workers(max_worker), tasks(max_task), running(true)
+		: task_producer(max_task), running(true), logger(LEVEL::ALL)
 	{
 		for(int i = 0; i < max_worker; ++i)
 		{
-			workers.push_back(std::thread(&thread_pool::processTask, this));
+			workers.push_back(std::thread ([&]() {
+				task_producer.consume([&](t_task task) {
+					try
+					{
+						task->notify();
+					}
+					catch (const std::runtime_error& e)
+					{
+						//...
+					}
+					catch (const std::exception& e)
+					{
+						this->logger.log(LEVEL::FATAL, e.what());
+					}
+				});
+			}));
 		}
 	}
 
@@ -51,40 +56,11 @@ public:
 		stop();
 	}
 
-	static void processTask(thread_pool* pool)
-	{
-		console_logger logger(LEVEL::ALL);
-
-		while(pool->is_running())
-		{
-			try
-			{
-				if(!pool->is_task_empty())
-				{
-					auto task = pool->pop_task();
-
-					if (task != nullptr)
-						task->notify();
-				}
-			}
-			catch (const std::runtime_error& e)
-			{
-				//...
-			}
-			catch (const std::exception& e)
-			{
-				logger.log(LEVEL::FATAL, e.what());
-			}
-			
-		}
-	}
-
 	void stop()
 	{
 		std::lock_guard<std::mutex> guard(this->pool_mutex);
 		running = false;
-
-		join_all();
+		task_producer.close();
 	}
 
 	bool is_running()
@@ -95,45 +71,28 @@ public:
 
 	bool is_task_empty()
 	{
-		return tasks.empty();
+		return task_producer.empty();
 	}
 
 	bool is_task_full()
 	{
-		return tasks.full();
+		return task_producer.full();
 	}
 
 	void push_task(t_task task)
 	{
 		try
 		{
-			tasks.enqueue(task);
+			task_producer.push(task);
 		}
 		catch (const std::exception& e)
 		{
 			throw e;
 		}
-	}
-
-	t_task pop_task()
-	{
-		try
-		{
-			return tasks.dequeue();
-		}
-		catch (const std::exception& e)
-		{
-			throw e;
-		}
-	}
-
-	size_t get_worker_count()
-	{
-		return workers.size();
 	}
 
 	size_t get_max_task_count()
 	{
-		return tasks.size();
+		return task_producer.size();
 	}
 };
