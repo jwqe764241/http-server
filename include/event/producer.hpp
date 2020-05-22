@@ -4,13 +4,14 @@
 #include <iostream>
 #include <condition_variable>
 
-#include <event/circular_queue.hpp>
+#include "circular_queue.hpp"
 
 
 template<typename T>
 class producer
 {
 private:
+	std::thread runner;
 	circular_queue<T> queue;
 	std::mutex m;
 	std::condition_variable cond_var;
@@ -21,6 +22,16 @@ public:
 	producer(int size)
 		: queue(size)
 	{
+		runner = std::thread([&]() {
+			while (!done)
+			{
+				if (!queue.empty())
+				{
+					notified = true;
+					cond_var.notify_one();
+				}
+			}
+			});
 	}
 
 	~producer()
@@ -29,50 +40,36 @@ public:
 
 	void push(T value)
 	{
-		std::unique_lock<std::mutex> lock(m);
-		
+		//lock은 어차피 circular_queue에 구현이 되어있음
 		try
 		{
 			queue.enqueue(value);
 		}
-		catch (const std::exception & e)
+		catch (const std::exception& e)
 		{
 			//full 상태가 아닐때까지 notify 하여 꺼내가도록 함
-			while (queue.full())
+			while (!done && queue.full())
 			{
-				lock.unlock();
-				notified = true;
-				cond_var.notify_one();
-				lock.lock();
 			}
 			queue.enqueue(value);
 		}
-		notified = true;
-		cond_var.notify_one();
 	}
 
-	template<typename C> void consume(C consumer)
+	T consume()
 	{
 		std::unique_lock<std::mutex> lock(m);
 
-		while (!done)
+		cond_var.wait(lock, [&] { return notified || done; });
+
+		while (queue.empty())
 		{
-			cond_var.wait(lock, [&] { return notified || done; });
-
-			while (!queue.empty())
-			{
-				consumer(queue.dequeue());
-			}
-
-			notified = false;
+			if (done)
+				return 0;
 		}
-	}
 
-	void close()
-	{
-		done = true;
-		notified = true;
-		cond_var.notify_all();
+		T value = queue.dequeue();
+		notified = false;
+		return std::move(value);
 	}
 
 	bool empty()
@@ -80,14 +77,16 @@ public:
 		return queue.empty();
 	}
 
-	bool full()
+	void close()
 	{
-		return queue.full();
+		done = true;
+		notified = true;
+		cond_var.notify_all();
+		runner.join();
 	}
 
-	size_t size()
+	bool isDone()
 	{
-		return queue.get_size();
+		return done;
 	}
 };
-

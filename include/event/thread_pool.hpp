@@ -32,8 +32,11 @@ public:
 	{
 		for(int i = 0; i < max_worker; ++i)
 		{
-			workers.push_back(std::thread ([&]() {
-				task_producer.consume([&](t_task task) {
+			workers.push_back(std::thread([&]() {
+				while (!task_producer.isDone())
+				{
+					t_task task = task_producer.consume();
+
 					try
 					{
 						task->notify();
@@ -46,7 +49,7 @@ public:
 					{
 						this->logger.log(LEVEL::FATAL, e.what());
 					}
-				});
+				}
 			}));
 		}
 	}
