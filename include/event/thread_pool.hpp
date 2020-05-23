@@ -21,15 +21,18 @@ class thread_pool
 private:
 	std::vector<std::thread> workers;
 	producer<t_task> task_producer;
-	console_logger logger;
+	std::unique_ptr<console_logger> log;
 	std::mutex pool_mutex;
 
 	bool running;
 
 public:
 	thread_pool(int max_worker,int max_task)
-		: task_producer(max_task), running(true), logger(LEVEL::ALL)
+		: task_producer(max_task), running(true)
 	{
+		log = std::make_unique<console_logger>(LEVEL::INFO, "[INFO]");
+		log->set_next(std::make_shared<console_logger>(LEVEL::FATAL, "[ERROR]"));
+			
 		for(int i = 0; i < max_worker; ++i)
 		{
 			workers.push_back(std::thread([&]() {
@@ -47,7 +50,7 @@ public:
 					}
 					catch (const std::exception& e)
 					{
-						this->logger.log(LEVEL::FATAL, e.what());
+						log->log(LEVEL::INFO, std::string(e.what()) + "\n");
 					}
 				}
 			}));
