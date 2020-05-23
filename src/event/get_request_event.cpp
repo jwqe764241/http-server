@@ -73,7 +73,7 @@ void get_request_event::do_post(server::http::request request)
 		path path(request.url);
 
 		content request_content(server->get_root_path());
-			request_content.append(content(path.get_real_path_string()));
+		request_content.append(content(path.get_real_path_string()));
 
 		auto remote = socket.remote_endpoint();
 
@@ -100,6 +100,8 @@ void get_request_event::do_post(server::http::request request)
 		std::stringstream file_stream;
 		file_stream << read_stream.rdbuf();
 		response.body = file_stream.str();
+
+		read_stream.close();
 
 		response.set_header("Content-Type", request_content.get_type());
 
