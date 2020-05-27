@@ -20,8 +20,7 @@ server::server(int worker_number, int max_task)
 	this->worker_number = worker_number;
 	this->max_task = max_task;
 
-	log = std::make_unique<console_logger>(LEVEL::INFO, "[INFO]");
-	log->set_next(std::make_shared<console_logger>(LEVEL::FATAL, "[ERROR]"));
+	log = std::make_unique<console_logger>(LEVEL::INFO | LEVEL::FATAL, "[INFO]");
 }
 
 server::~server()

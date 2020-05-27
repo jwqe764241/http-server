@@ -30,8 +30,7 @@ public:
 	thread_pool(int max_worker,int max_task)
 		: task_producer(max_task), running(true)
 	{
-		log = std::make_unique<console_logger>(LEVEL::INFO, "[INFO]");
-		log->set_next(std::make_shared<console_logger>(LEVEL::FATAL, "[ERROR]"));
+		log = std::make_unique<console_logger>(LEVEL::INFO | LEVEL::FATAL, "[INFO]");
 			
 		for(int i = 0; i < max_worker; ++i)
 		{
