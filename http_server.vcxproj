@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\event\event_control.hpp" />
     <ClInclude Include="include\event\get_request_event.hpp" />
     <ClInclude Include="include\event\circular_queue.hpp" />
     <ClInclude Include="include\event\event.hpp" />
@@ -168,7 +167,6 @@
     <ClInclude Include="include\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\event\event_control.cpp" />
     <ClCompile Include="src\event\get_request_event.cpp" />
     <ClCompile Include="src\file\content.cpp" />
     <ClCompile Include="src\file\part.cpp" />
