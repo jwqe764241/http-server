@@ -6,7 +6,8 @@ server::server(int worker_number, int max_task)
 	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
-	event_pool(worker_number, max_task)
+	event_pool(worker_number, max_task),
+	log(std::make_unique<console_logger>(LEVEL::INFO | LEVEL::FATAL, "[INFO]"))
 {
 	if (worker_number < 1)
 	{
@@ -19,8 +20,6 @@ server::server(int worker_number, int max_task)
 
 	this->worker_number = worker_number;
 	this->max_task = max_task;
-
-	log = std::make_unique<console_logger>(LEVEL::INFO | LEVEL::FATAL, "[INFO]");
 }
 
 server::~server()
