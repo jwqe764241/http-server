@@ -7,7 +7,7 @@ server::server(int worker_number, int max_task)
 	listen_socket(io_service),
 	signal(io_service),
 	event_pool(worker_number, max_task),
-	log(std::make_unique<console_logger>(LEVEL::INFO | LEVEL::FATAL, "[INFO]"))
+	log(std::make_unique<logging::console_logger>(logging::LEVEL::INFO | logging::LEVEL::FATAL))
 {
 	if (worker_number < 1)
 	{
@@ -58,12 +58,12 @@ void server::on_accept(const asio::error_code error_code)
 		}
 		catch(std::exception& e)
 		{
-			log->log(LEVEL::FATAL, e.what());
+			log->write(logging::LEVEL::FATAL, e.what());
 		}
 	}
 	else
 	{
-		log->log(LEVEL::FATAL, error_code.value() + " : " + error_code.message());
+		log->write(logging::LEVEL::FATAL, error_code.value() + " : " + error_code.message());
 	}
 
 	listen_socket.close();
@@ -90,7 +90,7 @@ void server::start(std::string ip, std::string port, std::string root_path)
 	}
 	catch (const std::exception & e)
 	{
-		log->log(LEVEL::FATAL, e.what());
+		log->write(logging::LEVEL::FATAL, e.what());
 		return;
 	}
 
@@ -98,14 +98,14 @@ void server::start(std::string ip, std::string port, std::string root_path)
 
 	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
 
-	log->log(LEVEL::INFO, "Server configured\n");
-	log->log(LEVEL::INFO, "  ip : " + ip + "\n");
-	log->log(LEVEL::INFO, "  port : " + port + "\n");
-	log->log(LEVEL::INFO, "  root path : " + root_path + "\n");
-	log->log(LEVEL::INFO, "  workers : " + std::to_string(worker_number) + "\n");
-	log->log(LEVEL::INFO, "  max task : " + std::to_string(max_task) + "\n");
+	log->write(logging::LEVEL::INFO, "Server configured");
+	log->write(logging::LEVEL::INFO, "  ip : " + ip);
+	log->write(logging::LEVEL::INFO, "  port : " + port);
+	log->write(logging::LEVEL::INFO, "  root path : " + root_path);
+	log->write(logging::LEVEL::INFO, "  workers : " + std::to_string(worker_number));
+	log->write(logging::LEVEL::INFO, "  max task : " + std::to_string(max_task));
 
-	log->log(LEVEL::INFO, "Now, server is running....\n\n\n");
+	log->write(logging::LEVEL::INFO, "Now, server is running....\n\n");
 
 	run();
 }
