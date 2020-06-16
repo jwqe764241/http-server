@@ -33,7 +33,7 @@ public:
 		for(int i = 0; i < max_worker; ++i)
 		{
 			workers.push_back(std::thread([&]() {
-				while (!task_producer.isDone())
+				while (!task_producer.is_done())
 				{
 					t_task task = task_producer.consume();
 

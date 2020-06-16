@@ -85,7 +85,7 @@ public:
 		runner.join();
 	}
 
-	bool isDone()
+	bool is_done()
 	{
 		return done;
 	}
