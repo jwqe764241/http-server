@@ -1,6 +1,6 @@
 #include "event/get_request_event.hpp"
 
-get_request_event::get_request_event(asio::io_service& service, asio::ip::tcp::socket socket, server::server* server)
+get_request_event::get_request_event(asio::io_service& service, asio::ip::tcp::socket socket, server::http_server* server)
 	: socket(std::move(socket)), server(server)
 {
 }

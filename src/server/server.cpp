@@ -2,7 +2,7 @@
 
 _IMPLEMENT_SCOPE
 
-server::server(int worker_number, int max_task)
+http_server::http_server(int worker_number, int max_task)
 	: acceptor(io_service),
 	listen_socket(io_service),
 	signal(io_service),
@@ -22,12 +22,12 @@ server::server(int worker_number, int max_task)
 	this->max_task = max_task;
 }
 
-server::~server()
+http_server::~http_server()
 {
 	stop();
 }
 
-void server::run()
+void http_server::run()
 {
 	try
 	{
@@ -43,7 +43,7 @@ void server::run()
 	}
 }
 
-void server::on_accept(const asio::error_code error_code)
+void http_server::on_accept(const asio::error_code error_code)
 {
 	if(!acceptor.is_open())
 	{
@@ -67,16 +67,16 @@ void server::on_accept(const asio::error_code error_code)
 	}
 
 	listen_socket.close();
-	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
+	acceptor.async_accept(listen_socket, std::bind(&http_server::on_accept, this, std::placeholders::_1));
 }
 
-void server::on_stop(const asio::error_code error_code)
+void http_server::on_stop(const asio::error_code error_code)
 {
 	event_pool.stop();
 	acceptor.close();
 }
 
-void server::start(std::string ip, std::string port, std::string root_path)
+void http_server::start(std::string ip, std::string port, std::string root_path)
 {
 	asio::ip::tcp::resolver resolver(io_service);
 	asio::ip::tcp::resolver::query query({ip, port});
@@ -96,7 +96,7 @@ void server::start(std::string ip, std::string port, std::string root_path)
 
 	this->root_path = root_path;
 
-	acceptor.async_accept(listen_socket, std::bind(&server::on_accept, this, std::placeholders::_1));
+	acceptor.async_accept(listen_socket, std::bind(&http_server::on_accept, this, std::placeholders::_1));
 
 	log->write(logging::LEVEL::INFO, "Server configured");
 	log->write(logging::LEVEL::INFO, "  ip : " + ip);
@@ -110,13 +110,13 @@ void server::start(std::string ip, std::string port, std::string root_path)
 	run();
 }
 
-void server::stop()
+void http_server::stop()
 {
-	signal.async_wait(std::bind(&server::on_stop, this, std::placeholders::_1));
+	signal.async_wait(std::bind(&http_server::on_stop, this, std::placeholders::_1));
 	io_service.stop();
 }
 
-std::string server::get_root_path()
+std::string http_server::get_root_path()
 {
 	return root_path;
 }

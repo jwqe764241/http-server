@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 
 		try
 		{
-			server::server server(
+			server::http_server server(
 				option.has("workers") ? std::stoi(option["workers"]) : 1,
 				option.has("max_task") ? std::stoi(option["max_task"]) : 200);
 
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 			std::string port = parser.get_arguments("--port").front();
 			std::string root = parser.get_arguments("--root").front();
 
-			server::server server(std::stoi(worker), std::stoi(task));
+			server::http_server server(std::stoi(worker), std::stoi(task));
 			server.start(ip, port, root);
 		}
 		catch (const cmd::option_not_found_exception& e)

@@ -16,7 +16,7 @@
 
 _IMPLEMENT_SCOPE
 
-class server
+class http_server
 {
 	std::unique_ptr<logging::logger> log;
 
@@ -40,13 +40,13 @@ private:
 
 public:
 	//initialize server with default option
-	server(int max_worker, int max_task);
-	virtual ~server();
+	http_server(int max_worker, int max_task);
+	virtual ~http_server();
 
 	//Not allow assign, copy, move
-	server(const server& server) = delete;
-	server(server&& server) = delete;
-	server& operator=(const server& server) = delete;
+	http_server(const http_server& server) = delete;
+	http_server(http_server&& server) = delete;
+	http_server& operator=(const http_server& server) = delete;
 
 	//server start end function
 	//get all resource
