@@ -53,9 +53,6 @@
     <ClInclude Include="include\utils\basic_option.hpp">
       <Filter>소스 파일\utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\server\server.hpp">
-      <Filter>소스 파일\server</Filter>
-    </ClInclude>
     <ClInclude Include="include\utils\logger.hpp">
       <Filter>소스 파일\utils</Filter>
     </ClInclude>
@@ -86,6 +83,9 @@
     <ClInclude Include="include\event\producer.hpp">
       <Filter>소스 파일\event</Filter>
     </ClInclude>
+    <ClInclude Include="include\server\http_server.hpp">
+      <Filter>소스 파일\server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -100,9 +100,6 @@
     <ClCompile Include="src\utils\file_option.cpp">
       <Filter>소스 파일\utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\server\server.cpp">
-      <Filter>소스 파일\server</Filter>
-    </ClCompile>
     <ClCompile Include="src\file\content.cpp">
       <Filter>소스 파일\file</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="src\event\get_request_event.cpp">
       <Filter>소스 파일\event\types</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\http_server.cpp">
+      <Filter>소스 파일\server</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
