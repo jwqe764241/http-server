@@ -64,9 +64,8 @@ void http_server::on_accept(const asio::error_code error_code)
 	else
 	{
 		log->write(logging::LEVEL::FATAL, error_code.value() + " : " + error_code.message());
+		listen_socket.close();
 	}
-
-	listen_socket.close();
 	acceptor.async_accept(listen_socket, std::bind(&http_server::on_accept, this, std::placeholders::_1));
 }
 
